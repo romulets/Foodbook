@@ -28,10 +28,7 @@ public class PersistanceContext {
       LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
       em.setDataSource(dataSource());
       em.setJpaVendorAdapter(jpaVendorAdapter);
-      em.setPackagesToScan("com.foodbook.model");
- 
-      System.out.println("BBBBBBBBBBB" + em);
-      
+      em.setPackagesToScan("com.foodbook.model");      
       return em;
    }
    
@@ -43,15 +40,6 @@ public class PersistanceContext {
        hibernateJpaVendorAdapter.setDatabase(Database.MYSQL);
        return hibernateJpaVendorAdapter;
    }
-   
-/*	@Bean
-	public EntityManager entityManager() {
-		EntityManager test = entityManagerFactory().getObject().createEntityManager();
-		
-		System.out.println("AAAAAAAAAAA" + test);
-		
-	    return test;
-	}*/
  
    @Bean
    public DataSource dataSource(){
