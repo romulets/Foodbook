@@ -1,0 +1,13 @@
+spring.mvc.view.prefix=/WEB-INF/views/
+spring.mvc.view.suffix=.jsp
+security.basic.enabled=false
+
+datasource.main.url: jdbc:mysql://localhost/foodbook
+datasource.main.username:root
+datasource.main.password:123123
+datasource.main.driverClassName:com.mysql.jdbc.Driver
+
+spring.jpa.generate-ddl=true
+spring.jpa.hibernate.ddl-auto:update
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5InnoDBDialect
+spring.jpa.show-sql=true
