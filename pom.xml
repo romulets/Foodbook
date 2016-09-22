@@ -31,6 +31,8 @@
         <artifactId>hibernate-commons-annotations</artifactId>
         <version>4.0.4.Final</version>
     </dependency>
+
+		
 		
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
 <dependency>

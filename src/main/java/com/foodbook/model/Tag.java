@@ -24,5 +24,19 @@ public class Tag {
 	
 	@ManyToMany
 	private List<Recipe> recipes;
+
+	public Tag() {}
+
+	public Tag(Integer idTag, String name, List<Recipe> recipes) {
+		super();
+		this.idTag = idTag;
+		this.name = name;
+		this.recipes = recipes;
+	}
+
+	@Override
+	public String toString() {
+		return "Tag [idTag=" + idTag + ", name=" + name + ", recipes=" + recipes + "]";
+	}
 	
 }

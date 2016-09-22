@@ -27,10 +27,65 @@ public class Address {
 	
 	@Column
 	private String country;
-    @JoinTable(name = "book_publisher", joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"), 
-    		inverseJoinColumns = @JoinColumn(name = "publisher_id", referencedColumnName = "id"))
+
 	@OneToOne
 	@JoinColumn(name="address_user_fk")
 	private User user;
+    
+	public Address() {}
 	
+	public Address(Integer idAddress, String city, String state, String country, User user) {
+		super();
+		this.idAddress = idAddress;
+		this.city = city;
+		this.state = state;
+		this.country = country;
+		this.user = user;
+	}
+	
+	public Integer getIdAddress() {
+		return idAddress;
+	}
+	
+	public void setIdAddress(Integer idAddress) {
+		this.idAddress = idAddress;
+	}
+	
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	
+	public String getState() {
+		return state;
+	}
+	
+	public void setState(String state) {
+		this.state = state;
+	}
+	
+	public String getCountry() {
+		return country;
+	}
+	
+	public void setCountry(String country) {
+		this.country = country;
+	}
+	
+	public User getUser() {
+		return user;
+	}
+	
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	@Override
+	public String toString() {
+		return "Address [idAddress=" + idAddress + ", city=" + city + ", state=" + state + ", country=" + country
+				+ ", user=" + user + "]";
+	}
+  
 }
