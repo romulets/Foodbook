@@ -14,13 +14,19 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name="user")
-public class User implements UserDetails {
+public class User /*implements UserDetails*/ {
 
 	@Id
 	@Column
@@ -28,12 +34,22 @@ public class User implements UserDetails {
 	private Integer id;
 	
 	@Column(nullable=false, length=55)
+	@NotNull(message="O campo nome não pode ficar vazio")
+	@NotEmpty(message="O campo nome não pode ficar vazio")
 	private String name;
 
 	@Column
+	@NotNull(message="O campo e-mail não pode ficar vazio")
+	@Pattern(
+			regexp="(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])",
+			message="O campo e-mail deve conter um endereço válido"
+			)
 	private String login;
 	
 	@Column
+	@NotNull(message="O campo senha não pode ficar vazio")
+	@NotEmpty(message="O campo senha não pode ficar vazio")
+	@Size(min=6, message="O campo senha deve conter mais que 6 caracteres")
 	private String password;
 	
 	@DateTimeFormat
@@ -44,6 +60,7 @@ public class User implements UserDetails {
 	private List<Recipe> cookedBy;
 	
 	@OneToOne(mappedBy="user")
+	@Valid
 	private Address address;
 	
 	@ManyToMany
@@ -147,32 +164,32 @@ public class User implements UserDetails {
 		this.roles = roles;
 	}
 
-	@Override
+	/*@Override*/
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return roles;
 	}
 
-	@Override
+	/*@Override*/
 	public String getUsername() {
 		return password;
 	}
 
-	@Override
+	/*@Override*/
 	public boolean isAccountNonExpired() {
 		return true;
 	}
 
-	@Override
+	/*@Override*/
 	public boolean isAccountNonLocked() {
 		return true;
 	}
 
-	@Override
+	/*@Override*/
 	public boolean isCredentialsNonExpired() {
 		return true;
 	}
 
-	@Override
+	/*@Override*/
 	public boolean isEnabled() {
 		return true;
 	}

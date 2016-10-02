@@ -8,6 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name="address")
@@ -19,12 +22,18 @@ public class Address {
 	private Integer idAddress;
 	
 	@Column
+	@NotNull(message="O campo cidade é obrigatório")
+	@NotEmpty(message="O campo cidade é obrigatório")
 	private String city;
 	
 	@Column
+	@NotNull(message="O campo estado é obrigatório")
+	@NotEmpty(message="O campo estado é obrigatório")
 	private String state;
 	
 	@Column
+	@NotNull(message="O campo país é obrigatório")
+	@NotEmpty(message="O campo país é obrigatório")
 	private String country;
 
 	@OneToOne
