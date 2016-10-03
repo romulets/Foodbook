@@ -2,8 +2,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@ taglib prefix="form" 
-		   uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,18 +21,15 @@
 	            <h4 class="text-center text-success">Seja bem vindo ao Foodbook!</h4>
 	            <hr />
 	            
-	            <!--<form:errors path="*" />-->
 	            <form:form servletRelativeAction="/">
 	            	<div class="form-group">
 	            		<label for="login">E-mail:</label>
 	            		<input type="text" name="username" class="form-control input-sm" />
-						<!--<form:errors path="login"/>-->
 	            	</div>
 	            	
 	            	<div class="form-group">
 	            		<label for="password">Senha:</label>
 	            		<input type="password" name="password" class="form-control input-sm" />
-						<!--<form:errors path="password"/>-->
 	            	</div>
 	            	
 	            	<span class="group-btn">   

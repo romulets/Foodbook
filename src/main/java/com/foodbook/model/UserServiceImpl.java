@@ -27,8 +27,6 @@ public class UserServiceImpl implements UserDetailsService, UserService{
 	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
 		User user;
 		
-		System.out.println("LOGGIIIN: " + login);
-		
 		user = userRepo.loadUserByUsername(login);
 		
 		if( user == null)
@@ -55,9 +53,7 @@ public class UserServiceImpl implements UserDetailsService, UserService{
 			long now = GregorianCalendar.getInstance().getTimeInMillis();
 			user.setCreationDate(new Date(now));
 		}
-		
 		userRepo.save(user);
-		
 	}
 	
 }
