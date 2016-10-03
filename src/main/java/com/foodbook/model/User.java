@@ -169,32 +169,32 @@ public class User implements UserDetails {
 		this.roles = roles;
 	}
 
-	/*@Override*/
+	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return roles;
 	}
 
-	/*@Override*/
+	@Override
 	public String getUsername() {
 		return password;
 	}
 
-	/*@Override*/
+	@Override
 	public boolean isAccountNonExpired() {
 		return true;
 	}
 
-	/*@Override*/
+	@Override
 	public boolean isAccountNonLocked() {
 		return true;
 	}
 
-	/*@Override*/
+	@Override
 	public boolean isCredentialsNonExpired() {
 		return true;
 	}
 
-	/*@Override*/
+	@Override
 	public boolean isEnabled() {
 		return true;
 	}

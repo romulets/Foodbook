@@ -12,7 +12,7 @@ public class UserRepository extends AbstractRepository<User> {
 		User user;
 		String sql;
 		
-		sql = "SELECT u FROM user u WHERE u.login = :login";
+		sql = "SELECT u FROM User u WHERE u.login = :login";
 		user = entityManager.createQuery(sql, User.class)
 								.setParameter("login", login)
 								.getSingleResult();

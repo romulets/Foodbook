@@ -14,16 +14,6 @@
 </head>
 <body>
 
-<form:form servletRelativeAction="/">
-	<label for="login">Username</label>
-	<input type="text" id="login" name="login">
-	
-	<label for="password">Password</label>
-	<input type="password" id="password" name="password">
-	
-	<button type="submit">Log in</button>
-</form:form>
-<!-- 
 <div class="container">
     <div class="row">
         <div class="col-md-offset-4 col-md-4">
@@ -31,18 +21,18 @@
 	            <h4 class="text-center text-success">Seja bem vindo ao Foodbook!</h4>
 	            <hr />
 	            
-	            <form:errors path="*" />
-	            <form:form modelAttribute="user">
+	            <!--<form:errors path="*" />-->
+	            <form:form servletRelativeAction="/">
 	            	<div class="form-group">
-	            		<form:label path="login">E-mail:</form:label>
-	            		<form:input path="login" cssClass="form-control input-sm" />
-						<form:errors path="login"/>
+	            		<label for="login">E-mail:</label>
+	            		<input type="text" name="username" class="form-control input-sm" />
+						<!--<form:errors path="login"/>-->
 	            	</div>
 	            	
 	            	<div class="form-group">
-	            		<form:label path="password">Senha:</form:label>
-	            		<form:password path="password" cssClass="form-control input-sm" />
-						<form:errors path="password"/>
+	            		<label for="password">Senha:</label>
+	            		<input type="password" name="password" class="form-control input-sm" />
+						<!--<form:errors path="password"/>-->
 	            	</div>
 	            	
 	            	<span class="group-btn">   
@@ -60,7 +50,7 @@
         </div>
 	</div>
 </div>
-  -->
+
 <script src="/Foodbook/resources/js/jquery.js"></script>
 <script src="/Foodbook/resources/js/bootstrap.min.js"></script>
 </body>

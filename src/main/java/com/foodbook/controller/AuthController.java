@@ -14,6 +14,12 @@ public class AuthController {
 	public String login(Model model) {
 		User user = new User();
 		model.addAttribute("user", user);
+		
+		return "auth/login";
+	}
+	
+	@RequestMapping(value="/logout", method=RequestMethod.GET)
+	public String logout(Model model) {
 		return "auth/login";
 	}
 	

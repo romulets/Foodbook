@@ -14,12 +14,18 @@ import org.springframework.security.core.GrantedAuthority;
 public class Role implements GrantedAuthority {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column
 	private String name;
 	
 	private static final long serialVersionUID = -6905006470042512008L;
 	
+	public Role() {}
+
+	public Role(String name) {
+		super();
+		this.name = name;
+	}
+
 	@Override
 	public String getAuthority() {
 		return name;

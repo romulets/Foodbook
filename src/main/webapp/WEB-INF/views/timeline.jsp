@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,11 +30,11 @@
 		 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav">
 	        <li class="active"><a href="#">Timeline</a></li>
-	        <li><a href="#">Recomendações</a></li>
+	        <li><a href="#">RecomendaÃ§Ãµes</a></li>
 	        <li><a href="#">Nova Receita</a></li>
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
-	        <li><a href="#">Sair</a></li>
+	        <li><a href="/Foodbook/logout">Sair</a></li>
 	      </ul>
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
@@ -56,7 +57,7 @@
 	                <p class="lead">
 	                    por <a href="/user/">Felipe Pereira</a>
 	                </p>
-	                <p><span class="glyphicon glyphicon-time"></span> Postado em 26/05/2016 às 18:30</p>
+	                <p><span class="glyphicon glyphicon-time"></span> Postado em 26/05/2016 Ã s 18:30</p>
 	                <hr>
 	                <img class="img-responsive" src="http://placehold.it/900x300" alt="">
 	                <hr>
@@ -73,7 +74,7 @@
 	                <p class="lead">
 	                    por <a href="/user/">Felipe Pereira</a>
 	                </p>
-	                <p><span class="glyphicon glyphicon-time"></span> Postado em 26/05/2016 às 18:30</p>
+	                <p><span class="glyphicon glyphicon-time"></span> Postado em 26/05/2016 Ã s 18:30</p>
 	                <hr>
 	                <img class="img-responsive" src="http://placehold.it/900x300" alt="">
 	                <hr>
@@ -104,7 +105,7 @@
 					<div class="text-center">
 						<img class="img-circle center-block" src="http://placehold.it/200x200"  width="100px" alt="">
 						<br />
-						<p>Rômulo Farias</p>
+						<p>${ currentUser.name }</p>
 					</div>	
 	
 
