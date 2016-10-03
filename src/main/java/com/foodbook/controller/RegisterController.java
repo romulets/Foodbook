@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.foodbook.model.UserService;
 import com.foodbook.modelview.RegisterForm;
 import com.foodbook.modelview.RegisterFormValidator;
-import com.foodbook.security.UserService;
 
 @Controller
 public class RegisterController {

@@ -1,4 +1,4 @@
-package com.foodbook.security;
+package com.foodbook.model;
 
 import java.sql.Date;
 import java.util.GregorianCalendar;
@@ -11,7 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.foodbook.model.User;
 import com.foodbook.repository.AddressRepository;
 import com.foodbook.repository.UserRepository;
 
