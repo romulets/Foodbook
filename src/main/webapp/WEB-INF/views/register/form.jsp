@@ -11,6 +11,9 @@
 <title>Foodbook - Cadastro</title>
 <link href="/Foodbook/resources/css/bootstrap.min.css" rel="stylesheet">
 <link href="/Foodbook/resources/css/blog-home.css" rel="stylesheet">
+ 
+<script src="/Foodbook/resources/js/jquery.js"></script>
+<script src="/Foodbook/resources/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -93,8 +96,5 @@
         </div>
 	</div>
 </div>
- 
-<script src="/Foodbook/resources/js/jquery.js"></script>
-<script src="/Foodbook/resources/js/bootstrap.min.js"></script>
 </body>
 </html>

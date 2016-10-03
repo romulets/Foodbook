@@ -17,4 +17,9 @@ public class AuthController {
 		return "auth/login";
 	}
 	
+	@RequestMapping(value="/loginfoi", method=RequestMethod.GET)
+	public String loginSucesso(){
+		return "/register/LoginSucesso";
+	}
+	
 }

@@ -14,6 +14,16 @@
 </head>
 <body>
 
+<form:form servletRelativeAction="/">
+	<label for="login">Username</label>
+	<input type="text" id="login" name="login">
+	
+	<label for="password">Password</label>
+	<input type="password" id="password" name="password">
+	
+	<button type="submit">Log in</button>
+</form:form>
+<!-- 
 <div class="container">
     <div class="row">
         <div class="col-md-offset-4 col-md-4">
@@ -50,7 +60,7 @@
         </div>
 	</div>
 </div>
- 
+  -->
 <script src="/Foodbook/resources/js/jquery.js"></script>
 <script src="/Foodbook/resources/js/bootstrap.min.js"></script>
 </body>
