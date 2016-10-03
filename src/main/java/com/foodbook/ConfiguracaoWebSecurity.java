@@ -38,19 +38,11 @@ public class ConfiguracaoWebSecurity
 				 .antMatchers("/register").permitAll()
 				 .antMatchers("/resources/**").permitAll()
 				 .anyRequest().authenticated()
-				 .and()
-		    .formLogin()
-		    	 .loginPage("/")
-		    	 .permitAll()
-		    	 .and()
-		    .logout()
-		   		 .permitAll()
-		         .and()
-		    .exceptionHandling()
+				 .and().formLogin().loginPage("/").permitAll()
+		    	 .and().logout().permitAll()
+		         .and().exceptionHandling()
 		    	 .accessDeniedPage("/WEB-INF/views/timeline")
-		    	 .and()
-            .csrf()
-            	 .disable();
+		    	 .and().csrf().disable();
 	}
 
 }
