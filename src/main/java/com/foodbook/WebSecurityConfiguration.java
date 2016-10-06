@@ -11,18 +11,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-public class ConfiguracaoWebSecurity 
+public class WebSecurityConfiguration 
 	extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
 	private UserDetailsService usuarioService;
-	
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-            .inMemoryAuthentication()
-                .withUser("login").password("password").roles("USER");
-    }
 	
 	@Override
 	public void configure(AuthenticationManagerBuilder builder) 
@@ -38,11 +31,18 @@ public class ConfiguracaoWebSecurity
 				 .antMatchers("/register").permitAll()
 				 .antMatchers("/resources/**").permitAll()
 				 .anyRequest().authenticated()
-				 .and().formLogin().loginPage("/").permitAll()
-		    	 .and().logout().permitAll()
-		         .and().exceptionHandling()
+				 .and()
+			.formLogin()
+				 .loginPage("/").permitAll()
+		    	 .and()
+		    .logout()
+		         .permitAll()
+		         .and()
+		    .exceptionHandling()
 		    	 .accessDeniedPage("/WEB-INF/views/timeline")
-		    	 .and().csrf().disable();
+		    	 .and()
+		    .csrf()
+		    	 .disable();
 	}
 
 }

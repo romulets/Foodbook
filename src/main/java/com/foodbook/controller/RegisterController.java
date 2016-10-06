@@ -1,6 +1,5 @@
 package com.foodbook.controller;
 
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +29,6 @@ public class RegisterController {
 
 	@RequestMapping(value="/register", method=RequestMethod.GET)
 	public String register(Model model) {
-		/* Juliano passed by here */
 		RegisterForm register = new RegisterForm();
 		model.addAttribute("register", register);
 		return "register/form";

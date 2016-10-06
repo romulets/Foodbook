@@ -1,6 +1,5 @@
 package com.foodbook.controller;
 
-
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,7 +12,6 @@ import com.foodbook.model.Recipe;
 import com.foodbook.model.User;
 import com.foodbook.repository.CategoryRepository;
 import com.foodbook.repository.RecipeRepository;
-
 
 @Controller
 public class RecipeController {
