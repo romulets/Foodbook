@@ -50,7 +50,6 @@ public class Recipe {
 	@Column
 	private Date publicationDate;
 	
-	//Adicionei o atributo status, como boolean, caso queiram mudar, ta susse.
 	@Column(nullable=false)
 	private boolean status;
 	

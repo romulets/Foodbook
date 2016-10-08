@@ -8,6 +8,8 @@ import javax.persistence.PersistenceException;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import com.foodbook.model.Recipe;
+
 public abstract class AbstractRepository<E> implements Repository<E>{
 
 	@PersistenceContext(unitName="foodbookPU")
@@ -45,7 +47,7 @@ public abstract class AbstractRepository<E> implements Repository<E>{
 	@Override
 	public E findById(String className, Integer id) {
 		try {
-			this.entityManager.find(className.getClass(), id);
+			this.entityManager.find(Recipe.class, id);
 		}
 		catch(IllegalArgumentException error) {
 			error.printStackTrace();
@@ -67,7 +69,5 @@ public abstract class AbstractRepository<E> implements Repository<E>{
 		}
 		return true;
 	}
-	
-	
 	
 }
