@@ -1,4 +1,4 @@
-package com.foodbook.infrastructure;
+package com.foodbook.repository;
 
 import java.util.List;
 

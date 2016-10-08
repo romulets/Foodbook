@@ -1,10 +1,11 @@
-package com.foodbook.model;
+package com.foodbook.service;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-@Service
+import com.foodbook.model.Recipe;
+
 public interface RecipeService {
 
 	public boolean saveRecipe(Recipe recipe) throws Exception;

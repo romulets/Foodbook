@@ -1,21 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+	<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<title>Foodbook - Login</title>
-<link href="/Foodbook/resources/css/bootstrap.min.css" rel="stylesheet">
-<link href="/Foodbook/resources/css/blog-home.css" rel="stylesheet">
-</head>
-<body>
+	<jsp:include page="../includes/guest/header.jsp">
+	    <jsp:param name="pageTitle" value="Foodbook - Login"/>
+	</jsp:include>
 
-<div class="container">
-    <div class="row">
         <div class="col-md-offset-4 col-md-4">
             <div class="container-fluid">
 	            <h4 class="text-center text-success">Seja bem vindo ao Foodbook!</h4>
@@ -39,16 +28,12 @@
 	            	
 	            <br />
 	            <p class="text-warning text-center">
-	            	Ainda n√£o possui cadastro?
+	            	Ainda n„o possui cadastro?
 	            	<br>
 	            	<a href="register">Cadastre-se aqui!</a>
 	            </p>
             </div>
         </div>
 	</div>
-</div>
-
-<script src="/Foodbook/resources/js/jquery.js"></script>
-<script src="/Foodbook/resources/js/bootstrap.min.js"></script>
-</body>
-</html>
+	
+	<jsp:include page="../includes/guest/footer.jsp" />

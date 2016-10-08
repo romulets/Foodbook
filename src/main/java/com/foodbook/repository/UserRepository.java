@@ -4,7 +4,6 @@ import javax.persistence.NoResultException;
 
 import org.springframework.stereotype.Repository;
 
-import com.foodbook.infrastructure.AbstractRepository;
 import com.foodbook.model.User;
 
 @Repository

@@ -1,23 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<%@ taglib prefix="form" 
-		   uri="http://www.springframework.org/tags/form" %>
 
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+	<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<title>Foodbook - Cadastro</title>
-<link href="/Foodbook/resources/css/bootstrap.min.css" rel="stylesheet">
-<link href="/Foodbook/resources/css/blog-home.css" rel="stylesheet">
- 
-<script src="/Foodbook/resources/js/jquery.js"></script>
-<script src="/Foodbook/resources/js/bootstrap.min.js"></script>
-</head>
-<body>
+	<jsp:include page="../includes/guest/header.jsp">
+	    <jsp:param name="pageTitle" value="Foodbook - Register"/>
+	</jsp:include>
 
-<div class="container">
     <div class="row">
         <div class="col-md-offset-3 col-md-6">
             <div class="container-fluid">
@@ -49,7 +36,7 @@
 	            		
 	            		<div class="col-md-6">
 	            			<div class="form-group">
-			            		<form:label path="passwordConfirmation">ConfirmaÃ§Ã£o da Senha:</form:label>
+			            		<form:label path="passwordConfirmation">Confirmação da Senha:</form:label>
 			            		<form:password path="passwordConfirmation" cssClass="form-control input-sm" />
 								<form:errors path="passwordConfirmation"/>
 		            		</div>
@@ -76,7 +63,7 @@
 	            	</div>
 	            	
 	            	<div class="form-group">
-	            		<form:label path="user.address.country">PaÃ­s:</form:label>
+	            		<form:label path="user.address.country">País:</form:label>
 	            		<form:input path="user.address.country" cssClass="form-control input-sm" />
 						<form:errors path="user.address.country"/>
 	            	</div>
@@ -88,13 +75,12 @@
 	            	
 	            <br />
 	            <p class="text-warning text-center">
-	            	JÃ¡ possui cadastro?
+	            	Já possui cadastro?
 	            	<br>
-	            	<a href="/Foodbook">FaÃ§a login aqui!</a>
+	            	<a href="/Foodbook">Faça login aqui!</a>
 	            </p>
             </div>
         </div>
 	</div>
-</div>
-</body>
-</html>
+
+	<jsp:include page="../includes/guest/footer.jsp" />

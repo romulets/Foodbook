@@ -1,14 +1,17 @@
-package com.foodbook.model;
+package com.foodbook.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
+import com.foodbook.model.Recipe;
 import com.foodbook.repository.RecipeRepository;
 
 
 @Service
+@Primary
 public class RecipeServiceImpl implements RecipeService{
 
 	@Autowired

@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import com.foodbook.model.Category;
-import com.foodbook.model.CategoryService;
 import com.foodbook.model.Recipe;
-import com.foodbook.model.RecipeService;
 import com.foodbook.model.User;
+import com.foodbook.service.CategoryService;
+import com.foodbook.service.RecipeService;
 
 
 @Controller
