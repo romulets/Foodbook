@@ -10,6 +10,9 @@ import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
+import com.foodbook.model.Category;
+import com.foodbook.model.Recipe;
+
 @EnableJpaRepositories(basePackages="com.foodbook.repository")
 @SpringBootApplication
 public class FoodbookApplication {
@@ -34,4 +37,5 @@ public class FoodbookApplication {
 					  .persistenceUnit("foodbookPU")
 					  .build();
 	}
+	
 }

@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -37,15 +38,6 @@ public class Recipe {
 	@NotEmpty(message="O campo descrição não pode ficar vazio")
 	private String description;
 	
-	@ManyToMany
-	private List<User> cookedBy;
-	
-	@ManyToMany
-	private List<User> likedBy;
-	
-	@OneToMany(mappedBy="recipeCommented")
-	private List<Comment> comments;
-	
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Column
 	private Date publicationDate;
@@ -53,8 +45,20 @@ public class Recipe {
 	@Column(nullable=false)
 	private boolean status;
 	
+	@ManyToMany(mappedBy="cookedRecipes")
+	private List<User> cookedBy;
+	
+	@ManyToMany(mappedBy="likedRecipes")
+	private List<User> likedBy;
+	
+	@OneToMany(mappedBy="recipeCommented")
+	private List<Comment> comments;
+	
 	@ManyToMany
-	private List<Recipe> tags;
+    @JoinTable(name = "recipe_tag", joinColumns = 
+    @JoinColumn(name = "idRecipe", referencedColumnName = "idRecipe"), inverseJoinColumns = 
+    @JoinColumn(name = "idTag", referencedColumnName = "idTag"))
+	private List<Tag> tags;
 	
 	@ManyToOne
 	@JoinColumn(name="recipe_category_fk")
@@ -67,7 +71,7 @@ public class Recipe {
 	public Recipe() {}
 
 	public Recipe(Integer idRecipe, String name, String description, List<User> cookedBy, List<User> likedBy,
-			List<Comment> comments, Date publicationDate, List<Recipe> tags, Category category, User publishedBy) {
+			List<Comment> comments, Date publicationDate, List<Tag> tags, Category category, User publishedBy) {
 		super();
 		this.idRecipe = idRecipe;
 		this.name = name;
@@ -137,11 +141,11 @@ public class Recipe {
 		this.publicationDate = publicationDate;
 	}
 
-	public List<Recipe> getTags() {
+	public List<Tag> getTags() {
 		return tags;
 	}
 
-	public void setTags(List<Recipe> tags) {
+	public void setTags(List<Tag> tags) {
 		this.tags = tags;
 	}
 
@@ -172,12 +176,8 @@ public class Recipe {
 
 	@Override
 	public String toString() {
-		return "Recipe [idRecipe=" + idRecipe + ", name=" + name + ", description=" + description + ", cookedBy="
-				+ cookedBy + ", likedBy=" + likedBy + ", comments=" + comments + ", publicationDate=" + publicationDate
-				+ ", status=" + status + ", tags=" + tags + ", category=" + category + ", publishedBy=" + publishedBy
-				+ "]";
+		return "Recipe [idRecipe=" + idRecipe + ", name=" + name + ", description=" + description + ", publicationDate="
+				+ publicationDate + ", status=" + status + "]";
 	}
-
-	
 	
 }

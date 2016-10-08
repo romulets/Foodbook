@@ -89,11 +89,10 @@ public class Address {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Address [idAddress=" + idAddress + ", city=" + city + ", state=" + state + ", country=" + country
-				+ ", user=" + user + "]";
+		return "Address [idAddress=" + idAddress + ", city=" + city + ", state=" + state + ", country=" + country + "]";
 	}
   
 }

@@ -1,6 +1,5 @@
 package com.foodbook.repository;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -59,6 +58,7 @@ public abstract class AbstractRepository<E> implements Repository<E> {
 		return null;
 	}
 
+	@Override
 	public E findById(Integer id) {
 		try {
 			this.entityManager.find(typeParameterClass, id);

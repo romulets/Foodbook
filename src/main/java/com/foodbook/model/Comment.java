@@ -88,7 +88,7 @@ public class Comment {
 	@Override
 	public String toString() {
 		return "Comment [idComment=" + idComment + ", publicationDate=" + publicationDate + ", description="
-				+ description + ", recipeCommented=" + recipeCommented + ", user=" + user + "]";
+				+ description + "]";
 	}
 	
 }

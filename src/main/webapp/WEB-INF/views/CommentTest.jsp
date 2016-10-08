@@ -14,7 +14,7 @@
 		<label for="comment">Comentário</label>
 		<textarea rows="4" cols="50" name="description" id="description"></textarea>
 		<input type="hidden" id="recipeCommented" name="recipeCommented" value="${recipe.idRecipe }" />
-		<input type="hidden" id="user" name="user" value="${currentUser.id }" />
+		<input type="hidden" id="user" name="user" value="${currentUser.idUser }" />
 		
 		<button type="submit">Enviar</button>
 	</form:form>

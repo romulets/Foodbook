@@ -22,7 +22,7 @@ public class Tag {
 	@Column
 	private String name;
 	
-	@ManyToMany
+	@ManyToMany(mappedBy="tags")
 	private List<Recipe> recipes;
 
 	public Tag() {}
@@ -36,7 +36,7 @@ public class Tag {
 
 	@Override
 	public String toString() {
-		return "Tag [idTag=" + idTag + ", name=" + name + ", recipes=" + recipes + "]";
+		return "Tag [idTag=" + idTag + ", name=" + name + "]";
 	}
 	
 }

@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -36,7 +38,7 @@ public class User implements UserDetails {
 	@Id
 	@Column
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+	private Integer idUser;
 	
 	@Column(nullable=false, length=55)
 	@NotNull(message="O campo nome não pode ficar vazio")
@@ -62,13 +64,19 @@ public class User implements UserDetails {
 	private Date creationDate;
 	
 	@ManyToMany
-	private List<Recipe> cookedBy;
+    @JoinTable(name = "user_recipe_cook", joinColumns = 
+    @JoinColumn(name = "idUser", referencedColumnName = "idUser"), inverseJoinColumns = 
+    @JoinColumn(name = "idRecipe", referencedColumnName = "idRecipe"))
+	private List<Recipe> cookedRecipes;
 	
 	@OneToOne(mappedBy="user")
 	@Valid
 	private Address address;
 	
 	@ManyToMany
+    @JoinTable(name = "user_recipe_like", joinColumns = 
+    @JoinColumn(name = "idUser", referencedColumnName = "idUser"), inverseJoinColumns = 
+    @JoinColumn(name = "idRecipe", referencedColumnName = "idRecipe"))
 	private List<Recipe> likedRecipes;
 	
 	@OneToMany(mappedBy="user")
@@ -79,26 +87,26 @@ public class User implements UserDetails {
 
 	public User() {}
 
-	public User(Integer id, String name, String login, String password, Date creationDate, List<Recipe> cookedBy,
+	public User(Integer idUser, String name, String login, String password, Date creationDate, List<Recipe> cookedBy,
 			Address address, List<Recipe> likedRecipes, List<Comment> comments) {
 		super();
-		this.id = id;
+		this.idUser = idUser;
 		this.name = name;
 		this.login = login;
 		this.password = password;
 		this.creationDate = creationDate;
-		this.cookedBy = cookedBy;
+		this.cookedRecipes = cookedBy;
 		this.address = address;
 		this.likedRecipes = likedRecipes;
 		this.comments = comments;
 	}
 
-	public Integer getId() {
-		return id;
+	public Integer getIdUser() {
+		return idUser;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setIdUser(Integer id) {
+		this.idUser = id;
 	}
 
 	public String getName() {
@@ -134,11 +142,11 @@ public class User implements UserDetails {
 	}
 
 	public List<Recipe> getCookedBy() {
-		return cookedBy;
+		return cookedRecipes;
 	}
 
 	public void setCookedBy(List<Recipe> cookedBy) {
-		this.cookedBy = cookedBy;
+		this.cookedRecipes = cookedBy;
 	}
 
 	public Address getAddress() {
@@ -198,12 +206,11 @@ public class User implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", login=" + login + ", password=" + password + ", creationDate="
-				+ creationDate + ", cookedBy=" + cookedBy + ", address=" + address + ", likedRecipes=" + likedRecipes
-				+ ", comments=" + comments + "]";
+		return "User [idUser=" + idUser + ", name=" + name + ", login=" + login + ", password=" + password
+				+ ", creationDate=" + creationDate + "]";
 	}
 	
 }
