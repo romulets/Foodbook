@@ -9,6 +9,10 @@ import com.foodbook.model.User;
 @Repository
 public class UserRepository extends AbstractRepository<User> {
 
+	public UserRepository(){
+		super(User.class);
+	}
+	
 	public User loadUserByUsername(String login) {
 		User user;
 		String sql;

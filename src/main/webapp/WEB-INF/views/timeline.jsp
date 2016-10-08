@@ -15,7 +15,7 @@
 				<div class="text-center">
 					<img class="img-circle center-block" src="http://placehold.it/200x200"  width="100px" alt="">
 					<br />
-					<p>${ currentUser.name }</p>
+					<p><a href="/Foodbook/profile">${ currentUser.name }</a></p>
 				</div>	
             </div>
 		</div>

@@ -5,4 +5,10 @@ import org.springframework.stereotype.Repository;
 import com.foodbook.model.Address;
 
 @Repository
-public class AddressRepository extends AbstractRepository<Address>{}
+public class AddressRepository extends AbstractRepository<Address> {
+
+	public AddressRepository() {
+		super(Address.class);
+	}
+	
+}

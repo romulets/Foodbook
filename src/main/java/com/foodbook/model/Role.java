@@ -11,6 +11,8 @@ import org.springframework.security.core.GrantedAuthority;
 @Table(name="role")
 public class Role implements GrantedAuthority {
 	
+	public static final String NORMAL_USER = "normal-user";
+			
 	@Id
 	@Column
 	private String name;
