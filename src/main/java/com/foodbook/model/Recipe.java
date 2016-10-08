@@ -13,7 +13,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -25,10 +27,14 @@ public class Recipe {
 	@Column
 	private Integer idRecipe;
 	
-	@Column
+	@Column(nullable=false, length=70)
+	@NotNull(message="O campo nome não pode ficar vazio")
+	@NotEmpty(message="O campo nome não pode ficar vazio")
 	private String name;
 	
-	@Column
+	@Column(nullable=false)
+	@NotNull(message="O campo descrição não pode ficar vazio")
+	@NotEmpty(message="O campo descrição não pode ficar vazio")
 	private String description;
 	
 	@ManyToMany
@@ -40,9 +46,13 @@ public class Recipe {
 	@OneToMany(mappedBy="recipeCommented")
 	private List<Comment> comments;
 	
-	@DateTimeFormat
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Column
 	private Date publicationDate;
+	
+	//Adicionei o atributo status, como boolean, caso queiram mudar, ta susse.
+	@Column(nullable=false)
+	private boolean status;
 	
 	@ManyToMany
 	private List<Recipe> tags;
@@ -151,12 +161,24 @@ public class Recipe {
 	public void setPublishedBy(User publishedBy) {
 		this.publishedBy = publishedBy;
 	}
+	
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
 
 	@Override
 	public String toString() {
 		return "Recipe [idRecipe=" + idRecipe + ", name=" + name + ", description=" + description + ", cookedBy="
 				+ cookedBy + ", likedBy=" + likedBy + ", comments=" + comments + ", publicationDate=" + publicationDate
-				+ ", tags=" + tags + ", category=" + category + ", publishedBy=" + publishedBy + "]";
+				+ ", status=" + status + ", tags=" + tags + ", category=" + category + ", publishedBy=" + publishedBy
+				+ "]";
 	}
+
+	
 	
 }

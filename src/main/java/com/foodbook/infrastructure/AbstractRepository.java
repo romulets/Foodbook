@@ -41,10 +41,11 @@ public abstract class AbstractRepository<E> implements Repository<E>{
 		return null;
 	}
 
+	//Alterei o método, retirei Entity para String. Att. Matheus Johan Mulder.
 	@Override
-	public E findById(E entity, Integer id) {
+	public E findById(String className, Integer id) {
 		try {
-			this.entityManager.find(entity.getClass(), id);
+			this.entityManager.find(className.getClass(), id);
 		}
 		catch(IllegalArgumentException error) {
 			error.printStackTrace();
@@ -54,4 +55,19 @@ public abstract class AbstractRepository<E> implements Repository<E>{
 		}
 		return null;
 	}
+
+	@Override
+	public boolean update(E entity) {
+		try {
+			this.entityManager.merge(entity);
+		}
+		catch (PersistenceException error) {
+			error.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	
+	
+	
 }
