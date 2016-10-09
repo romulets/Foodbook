@@ -9,15 +9,14 @@
 	<!-- Page just for tests purposes, delete after recipe pages get done. -->
 	
 	<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-	
-	<form:form servletRelativeAction="/comment" method="POST">
-		<label for="comment">Comentário</label>
-		<textarea rows="4" cols="50" name="description" id="description"></textarea>
-		<input type="hidden" id="recipeCommented" name="recipeCommented" value="${recipe.idRecipe }" />
-		<input type="hidden" id="user" name="user" value="${currentUser.idUser }" />
+
+	<form:errors path="*" />
+	<form:form servletRelativeAction="/comment" modelAttribute="commentForm">
+		<form:label path="comment.description">Comentário</form:label>
+		<form:textarea path="comment.description" />
+		<form:errors path="comment.description"/>
 		
 		<button type="submit">Enviar</button>
 	</form:form>
-
 </body>
 </html>

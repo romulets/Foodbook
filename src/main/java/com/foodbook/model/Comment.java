@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="comment")
@@ -20,18 +22,19 @@ public class Comment {
 	@Column
 	private Integer idComment;
 	
-	@Column
-	private Date publicationDate;
-	
-	@Column
+	@Column(nullable=false)
+	@NotNull(message="O campo comentário não pode ficar vazio.")
 	private String description;
 	
+	@Column(nullable=false)
+	private Date publicationDate;
+	
 	@ManyToOne
-	@JoinColumn(name="comment_recipe_fk")
+	@JoinColumn(name="comment_recipe_fk", nullable=false)
 	private Recipe recipeCommented;
 
 	@ManyToOne
-	@JoinColumn(name="comment_user_fk")
+	@JoinColumn(name="comment_user_fk", nullable=false)
 	private User user;
 
 	public Comment() {}

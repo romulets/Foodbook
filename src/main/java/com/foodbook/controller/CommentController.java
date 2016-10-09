@@ -1,24 +1,24 @@
 package com.foodbook.controller;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.foodbook.model.Comment;
 import com.foodbook.model.Recipe;
 import com.foodbook.model.User;
+import com.foodbook.modelview.CommentForm;
 import com.foodbook.repository.CommentRepository;
 import com.foodbook.repository.RecipeRepository;
-import com.foodbook.repository.UserRepository;
 
 @Controller
 public class CommentController {
@@ -38,22 +38,28 @@ public class CommentController {
 	public ModelAndView testComment(){
 		ModelAndView mv = new ModelAndView("/CommentTest");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User currentUser = (User) auth.getPrincipal();
-		Recipe recipe = rr.find(1);
+		User user = (User) auth.getPrincipal();
+		Recipe recipeCommented = rr.find(1);
+		CommentForm commentForm = new CommentForm();
 		
-		System.out.println(recipe);
+		commentForm.getComment().setUser(user);
 		
-		mv.addObject("recipe", recipe);
-		mv.addObject("currentUser", currentUser);
+		mv.addObject("recipeCommented", recipeCommented);
+		mv.addObject("user", user);
+		mv.addObject("commentForm", new CommentForm());
+		mv.addObject("commentForm.comment.user", user);
 		
 		return mv;
 	}
 	
 	@RequestMapping(value="/comment", method=RequestMethod.POST)
-	public String comment(Comment newComment){
-		System.out.println("AAA" + newComment);
+	public String comment(
+			@Valid @ModelAttribute("register") CommentForm commentForm,
+			BindingResult result) {
 		
-		return "/timeline";
+		System.out.println("AAA" + commentForm.getComment().getUser());
+		
+		return "redirect:/timeline";	
 	}
 	
 }
