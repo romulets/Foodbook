@@ -3,6 +3,7 @@ package com.foodbook.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,8 +29,12 @@ public class RegisterController {
 	}	
 
 	@RequestMapping(value="/register", method=RequestMethod.GET)
-	public String register(Model model) {
+	public String register(Model model, Authentication currentUser) {
 		RegisterForm register = new RegisterForm();
+		
+		if (currentUser.getPrincipal() != null)
+			return "redirect:/timeline";
+	
 		model.addAttribute("register", register);
 		return "register/form";
 	}

@@ -11,10 +11,12 @@
 	<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 	<form:errors path="*" />
-	<form:form servletRelativeAction="/comment" modelAttribute="commentForm">
+	<form:form servletRelativeAction="/comment" modelAttribute="commentForm">	
 		<form:label path="comment.description">Comentário</form:label>
 		<form:textarea path="comment.description" />
-		<form:errors path="comment.description"/>
+		<form:errors path="comment.description" />	
+		
+		<form:hidden path="recipe.idRecipe" value="recipe.idRecipe" />
 		
 		<button type="submit">Enviar</button>
 	</form:form>

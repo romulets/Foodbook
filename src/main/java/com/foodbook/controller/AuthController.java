@@ -1,5 +1,6 @@
 package com.foodbook.controller;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,12 +13,8 @@ import com.foodbook.model.User;
 public class AuthController {
 	
 	@RequestMapping(value="/", method=RequestMethod.GET)
-	public String login(Model model) {
-		Object anonymous = SecurityContextHolder.getContext()
-											    .getAuthentication()
-												.getPrincipal();
-		
-		if (anonymous instanceof User)
+	public String login(Model model, Authentication currentUser) {		
+		if (currentUser != null)
 			return "redirect:/timeline";
 		return "auth/login";	
 	}
