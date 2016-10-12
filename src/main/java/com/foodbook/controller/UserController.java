@@ -1,5 +1,7 @@
 package com.foodbook.controller;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -10,14 +12,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.foodbook.model.User;
 import com.foodbook.repository.UserRepository;
+import com.foodbook.service.UserService;
 
 import javassist.NotFoundException;
 
 @Controller
+@Transactional
 public class UserController {
 
 	@Autowired
-	private UserRepository userRepo;
+	private UserService userService;
 	
 	@RequestMapping(value = "profile", method = RequestMethod.GET)
 	public String loggedProfile(Model model) {
@@ -27,7 +31,7 @@ public class UserController {
 
 	@RequestMapping(value = "profile/{user}", method = RequestMethod.GET)
 	public String publicProfile(Model model, @PathVariable("user") int userId) throws NotFoundException {
-		User user = userRepo.findById(userId);
+		User user = userService.getRepository().findById(userId);
 		
 		if(user == null)
 			return "redirect:/timeline";
@@ -36,6 +40,7 @@ public class UserController {
 	}
 
 	private String makeProfile(Model model, User user) {
+		userService.LoadCookedRecipes(user);
 		model.addAttribute("user", user);
 		return "user/profile";
 	}

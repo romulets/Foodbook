@@ -3,6 +3,7 @@ package com.foodbook.service;
 import java.sql.Date;
 import java.util.GregorianCalendar;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.foodbook.model.User;
 import com.foodbook.repository.AddressRepository;
+import com.foodbook.repository.Repository;
 import com.foodbook.repository.UserRepository;
 
 @Service
@@ -37,7 +39,18 @@ public class UserServiceImpl implements UserDetailsService, UserService{
 		
 		return user;
 	}
-
+	
+	@Override
+	public Repository<User> getRepository() {
+		return userRepo;
+	}
+	
+	@Override
+	@Transactional
+	public void LoadCookedRecipes(User user) {
+		Hibernate.initialize(user.getCookedRecipes());
+	}
+	
 	@Override
 	@Transactional
 	public void saveUser(User user) {

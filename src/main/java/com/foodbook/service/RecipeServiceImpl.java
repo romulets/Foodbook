@@ -1,12 +1,15 @@
 package com.foodbook.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.foodbook.model.Recipe;
+import com.foodbook.model.User;
 import com.foodbook.repository.RecipeRepository;
 
 
@@ -20,9 +23,12 @@ public class RecipeServiceImpl implements RecipeService{
 
 	@Override
 	public boolean saveRecipe(Recipe recipe)throws Exception  {
-		if(recipe == null){
-			throw new Exception("Recipe null");
-		}
+		User currentUser = (User) SecurityContextHolder.getContext()
+			    .getAuthentication()
+				.getPrincipal();
+		
+		recipe.setPublishedBy(currentUser);
+		recipe.setPublicationDate(new Date());
 		rr.save(recipe);
 		return true;
 		

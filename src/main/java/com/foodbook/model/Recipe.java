@@ -60,6 +60,12 @@ public class Recipe {
     @JoinColumn(name = "idTag", referencedColumnName = "idTag"))
 	private List<Tag> tags;
 	
+	@OneToMany(mappedBy="recipe")
+	private List<Ingredient> ingredients;
+	
+	@OneToMany(mappedBy="recipe")
+	private List<CookStep> cookSteps;
+	
 	@ManyToOne
 	@JoinColumn(name="recipe_category_fk")
 	private Category category;
@@ -172,6 +178,22 @@ public class Recipe {
 
 	public void setStatus(boolean status) {
 		this.status = status;
+	}
+
+	public List<Ingredient> getIngredients() {
+		return ingredients;
+	}
+
+	public void setIngredients(List<Ingredient> ingredients) {
+		this.ingredients = ingredients;
+	}
+
+	public List<CookStep> getCookSteps() {
+		return cookSteps;
+	}
+
+	public void setCookSteps(List<CookStep> cookSteps) {
+		this.cookSteps = cookSteps;
 	}
 
 	@Override

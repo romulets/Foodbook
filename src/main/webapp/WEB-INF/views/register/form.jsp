@@ -2,7 +2,7 @@
 	<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 	<jsp:include page="../includes/guest/header.jsp">
-	    <jsp:param name="pageTitle" value="Foodbook - Register"/>
+	    <jsp:param name="pageTitle" value="Foodbook - Novo Registro"/>
 	</jsp:include>
 
     <div class="row">

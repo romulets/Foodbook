@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,29 +27,20 @@ public class RecipeController {
 	@Autowired
 	CategoryService categoryService;
 	
-	@RequestMapping(value="/auth/new/recipe", method=RequestMethod.POST, name="new_recipe")
-	public ModelAndView registerRecipe(Recipe recipe, HttpServletRequest request){
-		ModelAndView mv = new ModelAndView("/auth/recipeRegister");
-		
+	@RequestMapping(value="recipe/add", method=RequestMethod.GET)
+	public String newRecipeForm(Model model) {
+		model.addAttribute("recipe", new Recipe());
+		return "recipe/form";
+	}
+	
+	@RequestMapping(value="recipe/add", method=RequestMethod.POST, name="new_recipe")
+	public String registerRecipe(Recipe recipe, HttpServletRequest request){
 		try{
-			User currentUser = (User) SecurityContextHolder.getContext()
-				    .getAuthentication()
-					.getPrincipal();
-
-			
-			recipe.setPublishedBy(currentUser);
-			recipe.setStatus(true);
-			recipe.setPublicationDate(new Date());
-		
 			recipeService.saveRecipe(recipe);		
-			mv.addObject("msg", "Cadastrado com sucesso!");
-			
 		}catch(Exception e){
 			e.printStackTrace();
-			//Coloquei para que jogue uma mensagem, se n gostarem disso, pode tirar
-			mv.addObject("msg", "Cadastro invalido");
 		}				
-		return mv;
+		return "redirect:/timeline";
 	}
 	
 	@RequestMapping(value="/auth/list/recipes", name="list_recipes", method={RequestMethod.POST, RequestMethod.GET})

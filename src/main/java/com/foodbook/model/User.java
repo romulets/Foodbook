@@ -177,6 +177,18 @@ public class User implements UserDetails {
 		this.roles = roles;
 	}
 
+	public List<Recipe> getCookedRecipes() {
+		return cookedRecipes;
+	}
+
+	public void setCookedRecipes(List<Recipe> cookedRecipes) {
+		this.cookedRecipes = cookedRecipes;
+	}
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return roles;

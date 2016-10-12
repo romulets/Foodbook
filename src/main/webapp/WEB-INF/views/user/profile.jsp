@@ -1,6 +1,8 @@
-<jsp:include page="../includes/logged/header.jsp">
-    <jsp:param name="pageTitle" value="Foodbook - Perfil"/>
-</jsp:include>
+	<jsp:include page="../includes/logged/header.jsp">
+	    <jsp:param name="pageTitle" value="Foodbook - Perfil"/>
+	</jsp:include>
+
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 	<div class="row">
 
@@ -12,7 +14,11 @@
 			</div>
 				
 			<hr />
-    	
+    		
+    		<c:forEach items="${user.cookedRecipes}" var="recipe">
+		    	
+		  	</c:forEach>
+    		
 			<jsp:include page="../includes/logged/recipe-preview.jsp" />
 			<jsp:include page="../includes/logged/recipe-preview.jsp" />
 		</div>	              
