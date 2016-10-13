@@ -3,14 +3,13 @@ package com.foodbook.modelview;
 import javax.validation.Valid;
 
 import com.foodbook.model.Comment;
-import com.foodbook.model.Recipe;
 
 public class AddCommentForm {
 	
 	@Valid
 	private Comment comment;
 	
-	private Recipe recipe;
+	private Integer idRecipe;
 
 	public Comment getComment() {
 		return comment;
@@ -20,11 +19,12 @@ public class AddCommentForm {
 		this.comment = comment;
 	}
 
-	public Recipe getRecipe() {
-		return recipe;
+	public Integer getIdRecipe() {
+		return idRecipe;
 	}
 
-	public void setRecipe(Recipe recipe) {
-		this.recipe = recipe;
+	public void setIdRecipe(Integer idRecipe) {
+		this.idRecipe = idRecipe;
 	}
+	
 }

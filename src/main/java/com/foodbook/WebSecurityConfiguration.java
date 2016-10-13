@@ -30,6 +30,7 @@ public class WebSecurityConfiguration
 			.authorizeRequests()
 				 .antMatchers("/register").permitAll()
 				 .antMatchers("/resources/**").permitAll()
+				 .antMatchers("/testrole").hasRole("ADMIN")
 				 .anyRequest().authenticated()
 				 .and()
 			.formLogin()
@@ -39,7 +40,7 @@ public class WebSecurityConfiguration
 		         .permitAll()
 		         .and()
 		    .exceptionHandling()
-		    	 .accessDeniedPage("/WEB-INF/views/timeline")
+		    	 .accessDeniedPage("/")
 		    	 .and()
 		    .csrf()
 		    	 .disable();

@@ -79,17 +79,23 @@ public class User implements UserDetails {
     @JoinColumn(name = "idRecipe", referencedColumnName = "idRecipe"))
 	private List<Recipe> likedRecipes;
 	
+	@ManyToMany(fetch=FetchType.EAGER)
+    @JoinTable(name = "user_role", joinColumns = 
+    @JoinColumn(name = "idUser", referencedColumnName = "idUser"), inverseJoinColumns = 
+    @JoinColumn(name = "role", referencedColumnName = "name"))
+	private List<Role> roles;
+	
 	@OneToMany(mappedBy="user")
 	private List<Comment> comments;
-	
-	@ManyToMany(fetch=FetchType.EAGER)
-	private List<Role> roles = new ArrayList<>();
 
-	public User() {}
+	public User() {
+		super();
+		this.roles = new ArrayList<>();
+	}
 
 	public User(Integer idUser, String name, String login, String password, Date creationDate, List<Recipe> cookedBy,
 			Address address, List<Recipe> likedRecipes, List<Comment> comments) {
-		super();
+		this();
 		this.idUser = idUser;
 		this.name = name;
 		this.login = login;

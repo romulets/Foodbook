@@ -1,7 +1,5 @@
 package com.foodbook.service;
 
-import org.springframework.stereotype.Service;
-
 import com.foodbook.model.User;
 import com.foodbook.repository.Repository;
 

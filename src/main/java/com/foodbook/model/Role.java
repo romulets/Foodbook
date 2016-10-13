@@ -1,8 +1,11 @@
 package com.foodbook.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -16,6 +19,9 @@ public class Role implements GrantedAuthority {
 	@Id
 	@Column
 	private String name;
+	
+	@ManyToMany(mappedBy="roles")
+	private List<User> user;
 	
 	private static final long serialVersionUID = -6905006470042512008L;
 	

@@ -16,7 +16,7 @@
 		<form:textarea path="comment.description" />
 		<form:errors path="comment.description" />	
 		
-		<form:hidden path="recipe.idRecipe" value="recipe.idRecipe" />
+		<input type="hidden" name="idRecipe" id="idRecipe" value="${recipeCommented.idRecipe }">
 		
 		<button type="submit">Enviar</button>
 	</form:form>

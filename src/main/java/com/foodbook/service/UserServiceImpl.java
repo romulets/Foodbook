@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserDetailsService, UserService{
 		
 		if( user == null)
 			throw new UsernameNotFoundException("Usuário não encontrado.");
-		
+	    
 		return user;
 	}
 	

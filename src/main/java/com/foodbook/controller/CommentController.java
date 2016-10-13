@@ -31,29 +31,19 @@ public class CommentController {
 	@Autowired
 	CommentRepository commentRepository;
 	
-	// Dependency for test purposes, delete after recipe pages get done.
-	@Autowired
-	RecipeRepository rr;
-
-	// Route for test purposes, delete after recipe pages get done.
-	@RequestMapping(value="testComment", method=RequestMethod.GET)
-	public ModelAndView testComment(Authentication auth){
-		ModelAndView mv = new ModelAndView("/CommentTest");
-		Recipe recipeCommented = rr.find(1);
-		
-		AddCommentForm commentForm = new AddCommentForm();	
-		
-		mv.addObject("recipeCommented", recipeCommented);
-	//	mv.addObject("user", user);
-		mv.addObject("commentForm", commentForm);
-		
-		return mv;
-	}
-	
 	@RequestMapping(value="/comment", method=RequestMethod.POST)
 	public String comment(
 			@Valid @ModelAttribute("register") AddCommentForm commentForm,
 			BindingResult result) {
+		
+		/* 
+		 * After the repair of role errors, we just have to
+		 * use the method 'findById' to get the Recipe from
+		 * database and set It to the comment, then set the 
+		 * current date and save It using the method 'save'.
+		 * 
+		 * To get Recipe's id just 'commentForm.getIdRecipe'.
+		 */
 		
 		return "redirect:/timeline";	
 	}

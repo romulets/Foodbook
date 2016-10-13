@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.foodbook.model.Role;
 import com.foodbook.modelview.RegisterForm;
 import com.foodbook.modelview.RegisterFormValidator;
+import com.foodbook.repository.RoleRepository;
 import com.foodbook.service.UserService;
 
 @Controller
@@ -23,6 +25,9 @@ public class RegisterController {
 	@Autowired
 	private UserService service;
 	
+	@Autowired
+	private RoleRepository roleRepository;
+	
 	@InitBinder
 	protected void initBinder(WebDataBinder binder){
 		binder.addValidators(new RegisterFormValidator());
@@ -30,11 +35,12 @@ public class RegisterController {
 
 	@RequestMapping(value="/register", method=RequestMethod.GET)
 	public String register(Model model, Authentication currentUser) {
-		RegisterForm register = new RegisterForm();
+		RegisterForm register;
 		
-		if (currentUser.getPrincipal() != null)
+		if (currentUser != null)
 			return "redirect:/timeline";
 	
+		register = new RegisterForm();
 		model.addAttribute("register", register);
 		return "register/form";
 	}
@@ -46,6 +52,9 @@ public class RegisterController {
 		
 		if(result.hasErrors())
 			return "register/form";
+		
+		/* Test purposes -> */ Role role = roleRepository.findRole("ADMIN");
+		/* Test purposes -> */ register.getUser().getRoles().add(role);
 		
 		service.saveUser(register.getUser());
 		return "redirect:/timeline";			

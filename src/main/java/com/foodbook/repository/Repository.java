@@ -13,4 +13,5 @@ public interface Repository<E> {
 	public E findById (String className, Integer id);
 	
 	public E findById (Integer id);
+	
 }
