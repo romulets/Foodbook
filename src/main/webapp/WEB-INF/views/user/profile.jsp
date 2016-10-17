@@ -15,12 +15,11 @@
 				
 			<hr />
     		
-    		<c:forEach items="${user.cookedRecipes}" var="recipe">
-		    	
+    		<c:forEach items="${recipes}" var="recipe">
+		    	<h1>${ recipe.name }</h1>
+		    	<p>${ recipe.description }</p>
 		  	</c:forEach>
-    		
-			<jsp:include page="../includes/logged/recipe-preview.jsp" />
-			<jsp:include page="../includes/logged/recipe-preview.jsp" />
+    	
 		</div>	              
 			
 	</div>

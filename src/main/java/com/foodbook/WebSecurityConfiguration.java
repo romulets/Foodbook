@@ -39,10 +39,7 @@ public class WebSecurityConfiguration
 		         .permitAll()
 		         .and()
 		    .exceptionHandling()
-		    	 .accessDeniedPage("/")
-		    	 .and()
-		    .csrf()
-		    	 .disable();
+		    	 .accessDeniedPage("/");
 	}
 
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.foodbook.model.User;
+import com.foodbook.repository.RecipeRepository;
 import com.foodbook.repository.UserRepository;
 import com.foodbook.service.UserService;
 
@@ -22,6 +23,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private RecipeRepository recipeRepository;
 	
 	@RequestMapping(value = "profile", method = RequestMethod.GET)
 	public String loggedProfile(Model model) {
@@ -40,7 +44,7 @@ public class UserController {
 	}
 
 	private String makeProfile(Model model, User user) {
-		userService.LoadCookedRecipes(user);
+		model.addAttribute("recipes", recipeRepository.GetRecipes(user));
 		model.addAttribute("user", user);
 		return "user/profile";
 	}

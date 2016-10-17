@@ -84,7 +84,7 @@ public class User implements UserDetails {
     @JoinColumn(name = "idUser", referencedColumnName = "idUser"), inverseJoinColumns = 
     @JoinColumn(name = "role", referencedColumnName = "name"))
 	private List<Role> roles;
-	
+
 	@OneToMany(mappedBy="user")
 	private List<Comment> comments;
 
