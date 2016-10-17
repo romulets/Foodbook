@@ -49,12 +49,13 @@ public class RegisterController {
 	public String postRegister(
 			@Valid @ModelAttribute("register") RegisterForm register, 
 			BindingResult result) {
+		Role role;
 		
 		if(result.hasErrors())
 			return "register/form";
 		
-		/* Test purposes -> */ Role role = roleRepository.findRole("ADMIN");
-		/* Test purposes -> */ register.getUser().getRoles().add(role);
+		role = roleRepository.findRole("ROLE_ADMIN");
+		register.getUser().getRoles().add(role);
 		
 		service.saveUser(register.getUser());
 		return "redirect:/timeline";			

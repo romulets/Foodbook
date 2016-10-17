@@ -30,7 +30,6 @@ public class WebSecurityConfiguration
 			.authorizeRequests()
 				 .antMatchers("/register").permitAll()
 				 .antMatchers("/resources/**").permitAll()
-				 .antMatchers("/testrole").hasRole("ADMIN")
 				 .anyRequest().authenticated()
 				 .and()
 			.formLogin()
