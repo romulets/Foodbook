@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.foodbook.model.Recipe;
 import com.foodbook.model.User;
 import com.foodbook.repository.RecipeRepository;
+import com.foodbook.repository.Repository;
 
 
 @Service
@@ -62,7 +63,13 @@ public class RecipeServiceImpl implements RecipeService{
 		if(idRecipe == null){
 			throw new Exception("Invalid id");
 		}
-		return rr.findById("Recipe", idRecipe);
+		return rr.findById(idRecipe);
+	}
+	
+	//Test
+	@Override
+	public Repository<Recipe> getRepository() {
+		return rr;
 	}
 	
 	

@@ -43,6 +43,25 @@ public class RecipeController {
 		return "redirect:/timeline";
 	}
 	
+	//Incomplete 
+	@RequestMapping(value="recipe/details", method=RequestMethod.GET)
+	public String detailsRecipe(Integer id, Model model){
+		try{
+			System.out.println("IDDDDDDDDDDDDDD "+ id);
+	
+			Recipe recipe = recipeService.findRecipeById(new Integer(id));
+	
+			System.out.println("WOOOOOOOOOOOOOOW " + recipe);
+		
+			model.addAttribute("recipe", recipe);	
+			return "recipe/details";
+		}catch(Exception e){
+			e.printStackTrace();
+			return "redirect:/timeline";
+		}
+		
+	}
+	
 	@RequestMapping(value="/auth/list/recipes", name="list_recipes", method={RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView findRecipe(){
 		ModelAndView mv = new ModelAndView("/auth/listRecipe");

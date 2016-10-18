@@ -18,6 +18,7 @@
     		<c:forEach items="${recipes}" var="recipe">
 		    	<h1>${ recipe.name }</h1>
 		    	<p>${ recipe.description }</p>
+		    	<td><a href="recipe/details?id=${recipe.idRecipe}">Alterar</a></td>
 		  	</c:forEach>
     	
 		</div>	              
