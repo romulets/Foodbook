@@ -39,7 +39,7 @@ public class RegisterController {
 		
 		if (currentUser != null)
 			return "redirect:/timeline";
-	
+	  
 		register = new RegisterForm();
 		model.addAttribute("register", register);
 		return "register/form";

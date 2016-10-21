@@ -45,7 +45,7 @@ public abstract class AbstractRepository<E> implements Repository<E> {
 		return null;
 	}
 
-	// Alterei o método, retirei Entity para String. Att. Matheus Johan Mulder.
+	
 	@Override
 	@Deprecated
 	public E findById(String className, Integer id) {

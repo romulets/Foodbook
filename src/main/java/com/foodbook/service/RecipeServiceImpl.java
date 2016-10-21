@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.foodbook.model.Recipe;
 import com.foodbook.model.User;
 import com.foodbook.repository.RecipeRepository;
+import com.foodbook.repository.Repository;
 
 
 @Service
@@ -18,7 +19,7 @@ import com.foodbook.repository.RecipeRepository;
 public class RecipeServiceImpl implements RecipeService{
 
 	@Autowired
-	RecipeRepository rr;
+	RecipeRepository recipeRepo;
 	
 
 	@Override
@@ -29,7 +30,7 @@ public class RecipeServiceImpl implements RecipeService{
 		
 		recipe.setPublishedBy(currentUser);
 		recipe.setPublicationDate(new Date());
-		rr.save(recipe);
+		recipeRepo.save(recipe);
 		return true;
 		
 	}
@@ -41,7 +42,7 @@ public class RecipeServiceImpl implements RecipeService{
 			throw new Exception("Recipe null");
 
 		}
-		rr.update(recipe);
+		recipeRepo.update(recipe);
 		return true;
 		
 	}
@@ -49,7 +50,7 @@ public class RecipeServiceImpl implements RecipeService{
 
 	@Override
 	public List<Recipe> listRecipes() throws Exception {
-		List<Recipe> recipes = rr.list("Recipe");
+		List<Recipe> recipes = recipeRepo.list("Recipe");
 		if(recipes == null){
 			throw new Exception ("Doesn`t have recipes to list");
 		}
@@ -63,7 +64,13 @@ public class RecipeServiceImpl implements RecipeService{
 			// Create custom exception for NullRecipeIdentifier
 			throw new Exception("Invalid id");
 		}
-		return rr.findById(idRecipe);
+		return recipeRepo.findById(idRecipe);
+	}
+	
+	//Test
+	@Override
+	public Repository<Recipe> getRepository() {
+		return recipeRepo;
 	}
 
 }
