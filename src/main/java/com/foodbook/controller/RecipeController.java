@@ -1,10 +1,8 @@
 package com.foodbook.controller;
 
-import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,12 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import com.foodbook.model.Category;
 import com.foodbook.model.Recipe;
-import com.foodbook.model.User;
 import com.foodbook.service.CategoryService;
 import com.foodbook.service.RecipeService;
 
-
-@Controller
+@Controller(value="recipe/")
 public class RecipeController {
 	
 	@Autowired
@@ -27,13 +23,13 @@ public class RecipeController {
 	@Autowired
 	CategoryService categoryService;
 	
-	@RequestMapping(value="recipe/add", method=RequestMethod.GET)
+	@RequestMapping(value="add", method=RequestMethod.GET)
 	public String newRecipeForm(Model model) {
 		model.addAttribute("recipe", new Recipe());
 		return "recipe/form";
 	}
 	
-	@RequestMapping(value="recipe/add", method=RequestMethod.POST, name="new_recipe")
+	@RequestMapping(value="add", method=RequestMethod.POST, name="new_recipe")
 	public String registerRecipe(Recipe recipe, HttpServletRequest request){
 		try{
 			recipeService.saveRecipe(recipe);		
@@ -43,7 +39,7 @@ public class RecipeController {
 		return "redirect:/timeline";
 	}
 	
-	@RequestMapping(value="/auth/list/recipes", name="list_recipes", method={RequestMethod.POST, RequestMethod.GET})
+	@RequestMapping(value="list/", name="list_recipes", method=RequestMethod.GET)
 	public ModelAndView findRecipe(){
 		ModelAndView mv = new ModelAndView("/auth/listRecipe");
 			
@@ -60,8 +56,8 @@ public class RecipeController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/auth/edit/recipe/{pid}", name="edit_recipe", 
-			method={RequestMethod.POST, RequestMethod.GET})
+	@RequestMapping(value="edit/", name="edit_recipe", 
+			method=RequestMethod.POST)
 	public ModelAndView updateRecipe(Recipe recipe, @PathVariable("pid") String id ){
 		ModelAndView mv = new ModelAndView("/auth/editRecipe");
 		try{
@@ -84,8 +80,8 @@ public class RecipeController {
 		return mv;
 	}
 	
-	@RequestMapping(value="/recipe/desable/{pid}", name="desable_recipe", 
-			method=RequestMethod.GET)
+	@RequestMapping(value="/disable/", name="desable_recipe", 
+			method=RequestMethod.POST)
 	public ModelAndView disableRecipe(@PathVariable("pid") String id ){
 		//Entao, a view ainda a gente nao tem como definir, mas pensei em algo como deixar disponivel pro
 		//usuario quando listar as receitas dele, ter a opcao de enable e disable 
@@ -105,7 +101,7 @@ public class RecipeController {
 	}
 	
 	
-	@RequestMapping(value="/recipe/enable/{pid}", name="enable_recipe", 
+	@RequestMapping(value="/enable/{pid}", name="enable_recipe", 
 			method=RequestMethod.GET)
 	public ModelAndView enableRecipe(@PathVariable("pid") String id ){
 		//Entao, a view ainda a gente nao tem como definir, mas pensei em algo como deixar disponivel pro

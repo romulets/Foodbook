@@ -60,12 +60,11 @@ public class RecipeServiceImpl implements RecipeService{
 	@Override
 	public Recipe findRecipeById(Integer idRecipe) throws Exception {
 		if(idRecipe == null){
+			// Create custom exception for NullRecipeIdentifier
 			throw new Exception("Invalid id");
 		}
-		return rr.findById("Recipe", idRecipe);
+		return rr.findById(idRecipe);
 	}
-	
-	
 
 }
 

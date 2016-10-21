@@ -3,7 +3,10 @@ package com.foodbook.model;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -67,7 +70,7 @@ public class User implements UserDetails {
     @JoinTable(name = "user_recipe_cook", joinColumns = 
     @JoinColumn(name = "idUser", referencedColumnName = "idUser"), inverseJoinColumns = 
     @JoinColumn(name = "idRecipe", referencedColumnName = "idRecipe"))
-	private List<Recipe> cookedRecipes;
+	private Set<Recipe> cookedRecipes;
 	
 	@OneToOne(mappedBy="user")
 	@Valid
@@ -77,33 +80,35 @@ public class User implements UserDetails {
     @JoinTable(name = "user_recipe_like", joinColumns = 
     @JoinColumn(name = "idUser", referencedColumnName = "idUser"), inverseJoinColumns = 
     @JoinColumn(name = "idRecipe", referencedColumnName = "idRecipe"))
-	private List<Recipe> likedRecipes;
+	private Set<Recipe> likedRecipes;
 	
 	@ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = 
     @JoinColumn(name = "idUser", referencedColumnName = "idUser"), inverseJoinColumns = 
     @JoinColumn(name = "role", referencedColumnName = "name"))
-	private List<Role> roles;
+	private Set<Role> roles;
 
 	@OneToMany(mappedBy="user")
 	private List<Comment> comments;
 
 	public User() {
 		super();
-		this.roles = new ArrayList<>();
+		this.roles = new HashSet<Role>();
 	}
 
-	public User(Integer idUser, String name, String login, String password, Date creationDate, List<Recipe> cookedBy,
-			Address address, List<Recipe> likedRecipes, List<Comment> comments) {
-		this();
+	public User(Integer idUser, String name, String login, String password, Date creationDate,
+			Set<Recipe> cookedRecipes, Address address, Set<Recipe> likedRecipes, Set<Role> roles,
+			List<Comment> comments) {
+		super();
 		this.idUser = idUser;
 		this.name = name;
 		this.login = login;
 		this.password = password;
 		this.creationDate = creationDate;
-		this.cookedRecipes = cookedBy;
+		this.cookedRecipes = cookedRecipes;
 		this.address = address;
 		this.likedRecipes = likedRecipes;
+		this.roles = roles;
 		this.comments = comments;
 	}
 
@@ -147,12 +152,16 @@ public class User implements UserDetails {
 		this.creationDate = creationDate;
 	}
 
-	public List<Recipe> getCookedBy() {
-		return cookedRecipes;
+	public void setCookedRecipes(Set<Recipe> cookedRecipes) {
+		this.cookedRecipes = cookedRecipes;
 	}
 
-	public void setCookedBy(List<Recipe> cookedBy) {
-		this.cookedRecipes = cookedBy;
+	public void setLikedRecipes(Set<Recipe> likedRecipes) {
+		this.likedRecipes = likedRecipes;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 
 	public Address getAddress() {
@@ -163,12 +172,8 @@ public class User implements UserDetails {
 		this.address = address;
 	}
 
-	public List<Recipe> getLikedRecipes() {
+	public Set<Recipe> getLikedRecipes() {
 		return likedRecipes;
-	}
-
-	public void setLikedRecipes(List<Recipe> likedRecipes) {
-		this.likedRecipes = likedRecipes;
 	}
 
 	public List<Comment> getComments() {
@@ -179,19 +184,11 @@ public class User implements UserDetails {
 		this.comments = comments;
 	}
 
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
-	}
-
-	public List<Recipe> getCookedRecipes() {
+	public Set<Recipe> getCookedRecipes() {
 		return cookedRecipes;
 	}
 
-	public void setCookedRecipes(List<Recipe> cookedRecipes) {
-		this.cookedRecipes = cookedRecipes;
-	}
-
-	public List<Role> getRoles() {
+	public Set<Role> getRoles() {
 		return roles;
 	}
 

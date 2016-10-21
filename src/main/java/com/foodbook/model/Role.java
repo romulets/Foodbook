@@ -1,6 +1,7 @@
 package com.foodbook.model;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,7 +22,7 @@ public class Role implements GrantedAuthority {
 	private String name;
 	
 	@ManyToMany(mappedBy="roles")
-	private List<User> user;
+	private Set<User> user;
 	
 	private static final long serialVersionUID = -6905006470042512008L;
 	

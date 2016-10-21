@@ -44,7 +44,7 @@ public class UserController {
 	}
 
 	private String makeProfile(Model model, User user) {
-		model.addAttribute("recipes", recipeRepository.GetRecipes(user));
+		model.addAttribute("recipes", recipeRepository.getRecipes(user));
 		model.addAttribute("user", user);
 		return "user/profile";
 	}

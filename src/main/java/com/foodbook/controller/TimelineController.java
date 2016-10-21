@@ -16,8 +16,7 @@ public class TimelineController {
 	public String index(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User currentUser = (User) auth.getPrincipal();
-		
-		model.addAttribute("currentUser", currentUser);
+		model.addAttribute("currentUser", currentUser);	
 		
 		return "timeline";
 	}

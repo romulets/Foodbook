@@ -54,7 +54,7 @@ public class RegisterController {
 		if(result.hasErrors())
 			return "register/form";
 		
-		role = roleRepository.findRole("ROLE_ADMIN");
+		role = roleRepository.findRole("ROLE_USER");
 		register.getUser().getRoles().add(role);
 		
 		service.saveUser(register.getUser());

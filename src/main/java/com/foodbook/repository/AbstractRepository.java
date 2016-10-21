@@ -24,6 +24,7 @@ public abstract class AbstractRepository<E> implements Repository<E> {
 	public boolean save(E entity) {
 		try {
 			this.entityManager.persist(entity);
+			
 		} catch (PersistenceException error) {
 			error.printStackTrace();
 			return false;
@@ -61,19 +62,24 @@ public abstract class AbstractRepository<E> implements Repository<E> {
 	@Override
 	public E findById(Integer id) {
 		try {
-			this.entityManager.find(typeParameterClass, id);
+			return this.entityManager.find(typeParameterClass, id);
+			
 		} catch (IllegalArgumentException error) {
 			error.printStackTrace();
+			return null;
 		} catch (PersistenceException error) {
 			error.printStackTrace();
+			return null;
 		}
-		return null;
 	}
 
+	@Transactional
 	@Override
 	public boolean update(E entity) {
 		try {
 			this.entityManager.merge(entity);
+			this.entityManager.flush();
+			
 		} catch (PersistenceException error) {
 			error.printStackTrace();
 			return false;

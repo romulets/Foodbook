@@ -2,6 +2,7 @@ package com.foodbook.model;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -46,10 +47,10 @@ public class Recipe {
 	private boolean status;
 	
 	@ManyToMany(mappedBy="cookedRecipes")
-	private List<User> cookedBy;
+	private Set<User> cookedBy;
 	
 	@ManyToMany(mappedBy="likedRecipes")
-	private List<User> likedBy;
+	private Set<User> likedBy;
 	
 	@OneToMany(mappedBy="recipeCommented")
 	private List<Comment> comments;
@@ -58,7 +59,7 @@ public class Recipe {
     @JoinTable(name = "recipe_tag", joinColumns = 
     @JoinColumn(name = "idRecipe", referencedColumnName = "idRecipe"), inverseJoinColumns = 
     @JoinColumn(name = "idTag", referencedColumnName = "idTag"))
-	private List<Tag> tags;
+	private Set<Tag> tags;
 	
 	@OneToMany(mappedBy="recipe")
 	private List<Ingredient> ingredients;
@@ -73,20 +74,24 @@ public class Recipe {
 	@ManyToOne
 	@JoinColumn(name="recipe_publishedBy_fk")
 	private User publishedBy;
-
+	
 	public Recipe() {}
 
-	public Recipe(Integer idRecipe, String name, String description, List<User> cookedBy, List<User> likedBy,
-			List<Comment> comments, Date publicationDate, List<Tag> tags, Category category, User publishedBy) {
+	public Recipe(Integer idRecipe, String name, String description, Date publicationDate, boolean status,
+			Set<User> cookedBy, Set<User> likedBy, List<Comment> comments, Set<Tag> tags, List<Ingredient> ingredients,
+			List<CookStep> cookSteps, Category category, User publishedBy) {
 		super();
 		this.idRecipe = idRecipe;
 		this.name = name;
 		this.description = description;
+		this.publicationDate = publicationDate;
+		this.status = status;
 		this.cookedBy = cookedBy;
 		this.likedBy = likedBy;
 		this.comments = comments;
-		this.publicationDate = publicationDate;
 		this.tags = tags;
+		this.ingredients = ingredients;
+		this.cookSteps = cookSteps;
 		this.category = category;
 		this.publishedBy = publishedBy;
 	}
@@ -115,20 +120,28 @@ public class Recipe {
 		this.description = description;
 	}
 
-	public List<User> getCookedBy() {
+	public Set<User> getCookedBy() {
 		return cookedBy;
 	}
 
-	public void setCookedBy(List<User> cookedBy) {
+	public void setCookedBy(Set<User> cookedBy) {
 		this.cookedBy = cookedBy;
 	}
 
-	public List<User> getLikedBy() {
+	public Set<User> getLikedBy() {
 		return likedBy;
 	}
 
-	public void setLikedBy(List<User> likedBy) {
+	public void setLikedBy(Set<User> likedBy) {
 		this.likedBy = likedBy;
+	}
+
+	public Set<Tag> getTags() {
+		return tags;
+	}
+
+	public void setTags(Set<Tag> tags) {
+		this.tags = tags;
 	}
 
 	public List<Comment> getComments() {
@@ -145,14 +158,6 @@ public class Recipe {
 
 	public void setPublicationDate(Date publicationDate) {
 		this.publicationDate = publicationDate;
-	}
-
-	public List<Tag> getTags() {
-		return tags;
-	}
-
-	public void setTags(List<Tag> tags) {
-		this.tags = tags;
 	}
 
 	public Category getCategory() {

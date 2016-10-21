@@ -1,6 +1,7 @@
 package com.foodbook.model;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,16 +24,18 @@ public class Tag {
 	private String name;
 	
 	@ManyToMany(mappedBy="tags")
-	private List<Recipe> recipes;
+	private Set<Recipe> recipes;
 
 	public Tag() {}
 
-	public Tag(Integer idTag, String name, List<Recipe> recipes) {
+	public Tag(Integer idTag, String name, Set<Recipe> recipes) {
 		super();
 		this.idTag = idTag;
 		this.name = name;
 		this.recipes = recipes;
 	}
+
+
 
 	@Override
 	public String toString() {
