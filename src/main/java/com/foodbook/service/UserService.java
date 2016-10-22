@@ -8,7 +8,6 @@ public interface UserService {
 	public void saveUser(User user);
 	
 	public Repository<User> getRepository();
-	
-	public void LoadCookedRecipes(User user);
+
 
 }

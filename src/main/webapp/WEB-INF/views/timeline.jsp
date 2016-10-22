@@ -2,11 +2,25 @@
     <jsp:param name="pageTitle" value="Foodbook - Timeline"/>
 </jsp:include>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<sec:authentication property="principal" var="currentUser"/>
+
 	<div class="row">
 
     	<div class="col-md-8">
-			<jsp:include page="includes/logged/recipe-preview.jsp" />
-			<jsp:include page="includes/logged/recipe-preview.jsp" />
+    		<c:if test="${ empty recipes }">
+    			<p class="text-center">
+					Poxa, nem você nem outro chef de sua rede tem alguma receita publicada :'(
+					<br>
+					<a class="text-center" href="Foodbook/recipe/add">Que tal publicar uma aqui?</a>
+				</p>
+    		</c:if>
+    	
+			<c:forEach items="${recipes}" var="recipe">
+    			<c:set var="recipe" value="${recipe}" scope="request"/>
+    			<c:import url="includes/logged/recipe-preview.jsp" />
+		  	</c:forEach>
 		</div>	              
 			
 		

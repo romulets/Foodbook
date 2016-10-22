@@ -47,12 +47,6 @@ public class UserServiceImpl implements UserDetailsService, UserService{
 	
 	@Override
 	@Transactional
-	public void LoadCookedRecipes(User user) {
-		Hibernate.initialize(user.getCookedRecipes());
-	}
-	
-	@Override
-	@Transactional
 	public void saveUser(User user) {
 		BCryptPasswordEncoder encoder;
 		String cryptedPassword;

@@ -15,9 +15,6 @@ public interface RecipeService {
 	
 	public List<Recipe> listRecipes() throws Exception;
 	
-	//Test
 	public Repository<Recipe> getRepository();
-	
-	public Recipe findRecipeById(Integer idRecipe) throws Exception;
 	
 }

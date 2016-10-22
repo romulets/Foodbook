@@ -19,7 +19,7 @@ public class RecipeRepository extends AbstractRepository<Recipe> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Recipe> getRecipes(User user) {
+	public List<Recipe> getPublishedRecipes(User user) {
 		String hql = "SELECT recipe FROM Recipe as recipe WHERE recipe.publishedBy = :user";
 		Query query = entityManager.createQuery(hql);
 		
@@ -29,6 +29,10 @@ public class RecipeRepository extends AbstractRepository<Recipe> {
 		List<Recipe> recipes = (List<Recipe>) query.getResultList();
 		
 		return recipes;
+	}
+	
+	public List<Recipe> getRecipesForTimeline(User user) {
+		return getPublishedRecipes(user);
 	}
 	
 	@SuppressWarnings("unchecked")

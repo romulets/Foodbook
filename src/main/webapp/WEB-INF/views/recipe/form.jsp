@@ -2,13 +2,13 @@
 	<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 	<jsp:include page="../includes/logged/header.jsp">
-	    <jsp:param name="pageTitle" value="Foodbook - Nova Receita"/>
+	    <jsp:param name="pageTitle" value="Foodbook - Formulário de Receita"/>
 	</jsp:include>
 
     <div class="row">
         <div class="col-md-offset-2 col-md-8">
             <div class="container-fluid">
-	            <h4 class="text-success">Nova Receita</h4>
+	            <h4 class="text-success">Formulário de Receita</h4>
 	            <hr />
 	            
 	            <form:errors path="*" />

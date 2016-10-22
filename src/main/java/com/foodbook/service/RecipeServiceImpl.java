@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import com.foodbook.exceptions.ResourceNotFoundException;
 import com.foodbook.model.Recipe;
 import com.foodbook.model.User;
 import com.foodbook.repository.RecipeRepository;
@@ -33,10 +34,15 @@ public class RecipeServiceImpl implements RecipeService {
 
 	@Override
 	public boolean updateRecipe(Recipe recipe) throws Exception {
-		if(recipe == null)
-			throw new Exception("Recipe null");
+		if(recipe == null || recipe.getIdRecipe() < 0)
+			throw new ResourceNotFoundException();
 
-		recipeRepo.update(recipe);
+		Recipe persistedRecipe = recipeRepo.findById(recipe.getIdRecipe());
+		persistedRecipe.setName(recipe.getName());
+		persistedRecipe.setDescription(recipe.getDescription());
+		persistedRecipe.setStatus(recipe.isStatus());
+		recipeRepo.save(persistedRecipe);
+		
 		return true;
 	}
 
@@ -49,18 +55,7 @@ public class RecipeServiceImpl implements RecipeService {
 		
 		return recipes;
 	}
-
-
-	@Override
-	public Recipe findRecipeById(Integer idRecipe) throws Exception {
-		if(idRecipe == null)
-			// TODO: Create custom exception for NullRecipeIdentifier
-			throw new Exception("Invalid id");
-		
-		return recipeRepo.findById(idRecipe);
-	}
 	
-	//Test
 	@Override
 	public Repository<Recipe> getRepository() {
 		return recipeRepo;

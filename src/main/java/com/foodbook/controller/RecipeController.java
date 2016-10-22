@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.foodbook.exceptions.ResourceNotFoundException;
 import com.foodbook.model.Category;
 import com.foodbook.model.Recipe;
 import com.foodbook.service.CategoryService;
 import com.foodbook.service.RecipeService;
 
-@Controller(value="recipe/")
+@Controller
 public class RecipeController {
 	
 	@Autowired
@@ -24,30 +26,41 @@ public class RecipeController {
 	@Autowired
 	CategoryService categoryService;
 	
-	@RequestMapping(value="add", method=RequestMethod.GET)
+	@RequestMapping(value="recipe/{id}", method=RequestMethod.GET)
+	public String viewRecipe(@PathVariable("id") int id, Model model) {
+		Recipe recipe = recipeService.getRepository().findById(id);
+		if(recipe == null)
+			throw new ResourceNotFoundException();
+		
+		model.addAttribute("recipe", recipe);
+		
+		return "recipe/profile";
+	}
+	
+	@RequestMapping(value="recipe/add", method=RequestMethod.GET)
 	public String newRecipeForm(Model model) {
 		model.addAttribute("recipe", new Recipe());
 		return "recipe/form";
 	}
 	
-	@RequestMapping(value="add", method=RequestMethod.POST, name="new_recipe")
+	@RequestMapping(value="recipe/add", method=RequestMethod.POST, name="new_recipe")
 	public String registerRecipe(Recipe recipe, Authentication auth){
 		try{
-			recipeService.saveRecipe(recipe, auth);	
-			
+			recipeService.saveRecipe(recipe, auth);
+			return "redirect:/recipe/" + recipe.getIdRecipe();
 		} catch(Exception e){
 			e.printStackTrace();
+			return "redirect:/timeline";
 		}				
-		return "redirect:/timeline";
 	}
 	
-	@RequestMapping(value="recipe/details", method=RequestMethod.GET)
-	public String detailsRecipe(Integer id, Model model){
+	@RequestMapping(value="recipe/edit/{id}", method=RequestMethod.GET)
+	public String editRecipe(@PathVariable("id") Integer id, Model model){
 		try{
-			Recipe recipe = recipeService.findRecipeById(new Integer(id));
+			Recipe recipe = recipeService.getRepository().findById(id);
 			model.addAttribute("recipe", recipe);	
 			
-			return "recipe/details";
+			return "recipe/form";
 			
 		} catch(Exception e){
 			e.printStackTrace();
@@ -72,29 +85,17 @@ public class RecipeController {
 		return mv;
 	}
 	
-	@RequestMapping(value="edit/", name="edit_recipe", 
+	@RequestMapping(value="recipe/edit/{id}", name="edit_recipe", 
 			method=RequestMethod.POST)
-	public ModelAndView updateRecipe(Recipe recipe, @PathVariable("pid") String id ){
-		ModelAndView mv = new ModelAndView("/auth/editRecipe");
-		
-		try {
-			//Preciso pensar em algo melhor e por isso na service. 
-			if(recipe == null || recipe.getIdRecipe() == null){
-				Recipe r = recipeService.findRecipeById(new Integer(id));
-				mv.addObject("recipe", r);
-			}
-			
+	public String updateRecipe(Recipe recipe, @PathVariable("id") int id ){
+		try {					
+			recipe.setIdRecipe(id);
 			recipeService.updateRecipe(recipe);
-			mv.addObject("recipe", recipe);
-			List<Category> categories = categoryService.list();
-			mv.addObject("listCategoriesRecipe", categories);
-			mv.addObject("msg", "Atualizado com sucesso!");
-						
 		} catch(Exception e){
 			e.printStackTrace();
-			return mv.addObject("msg", "Nao foi possivel atualizar a receita ");
 		}
-		return mv;
+		
+		return "redirect:/recipe/" + id;
 	}
 	
 	@RequestMapping(value="/disable/", name="desable_recipe", 
@@ -105,7 +106,7 @@ public class RecipeController {
 		ModelAndView mv = new ModelAndView("/auth/listRecipe");
 			
 		try {
-			Recipe recipe = recipeService.findRecipeById(new Integer(id));
+			Recipe recipe = recipeService.getRepository().findById(new Integer(id));
 			recipe.setStatus(false);
 			recipeService.updateRecipe(recipe);
 			mv.addObject("msg", "Desabilitado com sucesso!");
@@ -126,7 +127,7 @@ public class RecipeController {
 		ModelAndView mv = new ModelAndView("/auth/listRecipe");
 			
 		try {
-			Recipe recipe = recipeService.findRecipeById(new Integer(id));
+			Recipe recipe = recipeService.getRepository().findById(new Integer(id));
 			recipe.setStatus(true);
 			recipeService.updateRecipe(recipe);
 			mv.addObject("msg", "Habilitado com sucesso!");

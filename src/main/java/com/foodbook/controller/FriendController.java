@@ -1,7 +1,5 @@
 package com.foodbook.controller;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -13,16 +11,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.foodbook.model.Notification;
 import com.foodbook.model.User;
-import com.foodbook.repository.NotificationRepository;
 import com.foodbook.repository.UserRepository;
 import com.foodbook.service.FriendServiceImpl;
 
 @Controller
 public class FriendController {
-	
-	@Autowired
-	private NotificationRepository notificationRepository;
-	
+
 	@Autowired
 	private UserRepository userRepository;
 	
