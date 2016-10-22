@@ -1,7 +1,6 @@
 package com.foodbook.model;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -66,15 +65,18 @@ public class User implements UserDetails {
 	@Column
 	private Date creationDate;
 	
+	@OneToMany(mappedBy="user")
+	private List<Comment> comments;
+
+	@OneToOne(mappedBy="user")
+	@Valid
+	private Address address;
+	
 	@ManyToMany
     @JoinTable(name = "user_recipe_cook", joinColumns = 
     @JoinColumn(name = "idUser", referencedColumnName = "idUser"), inverseJoinColumns = 
     @JoinColumn(name = "idRecipe", referencedColumnName = "idRecipe"))
 	private Set<Recipe> cookedRecipes;
-	
-	@OneToOne(mappedBy="user")
-	@Valid
-	private Address address;
 	
 	@ManyToMany
     @JoinTable(name = "user_recipe_like", joinColumns = 
@@ -87,9 +89,15 @@ public class User implements UserDetails {
     @JoinColumn(name = "idUser", referencedColumnName = "idUser"), inverseJoinColumns = 
     @JoinColumn(name = "role", referencedColumnName = "name"))
 	private Set<Role> roles;
-
-	@OneToMany(mappedBy="user")
-	private List<Comment> comments;
+	
+	@ManyToMany(fetch=FetchType.EAGER)
+    @JoinTable(name = "user_friend", joinColumns = 
+    @JoinColumn(name = "idUser_A", referencedColumnName = "idUser"), inverseJoinColumns = 
+    @JoinColumn(name = "idUser_B", referencedColumnName = "idUser"))
+	private Set<User> friends;
+	
+	@ManyToMany(mappedBy="friends")
+	private Set<User> friendOf;
 
 	public User() {
 		super();
@@ -190,6 +198,22 @@ public class User implements UserDetails {
 
 	public Set<Role> getRoles() {
 		return roles;
+	}
+
+	public Set<User> getFriends() {
+		return friends;
+	}
+
+	public void setFriends(Set<User> friends) {
+		this.friends = friends;
+	}
+
+	public Set<User> getFriendOf() {
+		return friendOf;
+	}
+
+	public void setFriendOf(Set<User> friendOf) {
+		this.friendOf = friendOf;
 	}
 
 	@Override

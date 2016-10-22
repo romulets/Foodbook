@@ -3,6 +3,7 @@ package com.foodbook.controller;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,10 +31,11 @@ public class RecipeController {
 	}
 	
 	@RequestMapping(value="add", method=RequestMethod.POST, name="new_recipe")
-	public String registerRecipe(Recipe recipe, HttpServletRequest request){
+	public String registerRecipe(Recipe recipe, Authentication auth){
 		try{
-			recipeService.saveRecipe(recipe);		
-		}catch(Exception e){
+			recipeService.saveRecipe(recipe, auth);	
+			
+		} catch(Exception e){
 			e.printStackTrace();
 		}				
 		return "redirect:/timeline";
@@ -42,31 +44,27 @@ public class RecipeController {
 	@RequestMapping(value="recipe/details", method=RequestMethod.GET)
 	public String detailsRecipe(Integer id, Model model){
 		try{
-			System.out.println("IDDDDDDDDDDDDDD "+ id);
-	
 			Recipe recipe = recipeService.findRecipeById(new Integer(id));
-	
-			System.out.println("WOOOOOOOOOOOOOOW " + recipe);
-		
 			model.addAttribute("recipe", recipe);	
+			
 			return "recipe/details";
-		}catch(Exception e){
+			
+		} catch(Exception e){
 			e.printStackTrace();
 			return "redirect:/timeline";
 		}
-		
 	}
 	
-	@RequestMapping(value="/auth/list/recipes", name="list_recipes", method={RequestMethod.POST, RequestMethod.GET})
+	@RequestMapping(value="/auth/list/recipes", name="list_recipes", 
+			method={RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView findRecipe(){
 		ModelAndView mv = new ModelAndView("/auth/listRecipe");
 			
-		try{			
-			
+		try {
 			List<Recipe> recipes = recipeService.listRecipes();
 			mv.addObject("listRecipes", recipes);
 			
-		}catch(Exception e){
+		} catch(Exception e){
 			e.printStackTrace();
 			return mv.addObject("msg", "Busca inválida!");
 
@@ -78,20 +76,21 @@ public class RecipeController {
 			method=RequestMethod.POST)
 	public ModelAndView updateRecipe(Recipe recipe, @PathVariable("pid") String id ){
 		ModelAndView mv = new ModelAndView("/auth/editRecipe");
-		try{
-				//Preciso pensar em algo melhor e por isso na service. 
-				if(recipe == null || recipe.getIdRecipe() == null){
-					Recipe r = recipeService.findRecipeById(new Integer(id));
-					mv.addObject("recipe", r);
-				}
-				
-				recipeService.updateRecipe(recipe);
-				mv.addObject("recipe", recipe);
-				List<Category> categories = categoryService.list();
-				mv.addObject("listCategoriesRecipe", categories);
-				mv.addObject("msg", "Atualizado com sucesso!");
+		
+		try {
+			//Preciso pensar em algo melhor e por isso na service. 
+			if(recipe == null || recipe.getIdRecipe() == null){
+				Recipe r = recipeService.findRecipeById(new Integer(id));
+				mv.addObject("recipe", r);
+			}
+			
+			recipeService.updateRecipe(recipe);
+			mv.addObject("recipe", recipe);
+			List<Category> categories = categoryService.list();
+			mv.addObject("listCategoriesRecipe", categories);
+			mv.addObject("msg", "Atualizado com sucesso!");
 						
-		}catch(Exception e){
+		} catch(Exception e){
 			e.printStackTrace();
 			return mv.addObject("msg", "Nao foi possivel atualizar a receita ");
 		}
@@ -105,16 +104,16 @@ public class RecipeController {
 		//usuario quando listar as receitas dele, ter a opcao de enable e disable 
 		ModelAndView mv = new ModelAndView("/auth/listRecipe");
 			
-		try{
+		try {
 			Recipe recipe = recipeService.findRecipeById(new Integer(id));
 			recipe.setStatus(false);
 			recipeService.updateRecipe(recipe);
 			mv.addObject("msg", "Desabilitado com sucesso!");
-		}catch(Exception e){
+			
+		} catch(Exception e){
 			e.printStackTrace();
 			mv.addObject("msg", "Nao foi possivel desabilitar a receita");
 		}
-		
 		return mv;
 	}
 	
@@ -126,16 +125,17 @@ public class RecipeController {
 		//usuario quando listar as receitas dele, ter a opcao de enable e disable 
 		ModelAndView mv = new ModelAndView("/auth/listRecipe");
 			
-		try{
+		try {
 			Recipe recipe = recipeService.findRecipeById(new Integer(id));
 			recipe.setStatus(true);
 			recipeService.updateRecipe(recipe);
 			mv.addObject("msg", "Habilitado com sucesso!");
-		}catch(Exception e){
+			
+		} catch(Exception e){
 			e.printStackTrace();
 			mv.addObject("msg", "Nao foi possivel habilitar a receita");
 		}
-		
 		return mv;
 	}
+	
 }

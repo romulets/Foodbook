@@ -1,7 +1,6 @@
 package com.foodbook.repository;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.NoResultException;
@@ -29,6 +28,7 @@ public class UserRepository extends AbstractRepository<User> {
 			user = entityManager.createQuery(sql, User.class)
 									.setParameter("login", login)
 									.getSingleResult();
+			
 		} catch (NoResultException error) {
 			return null;
 		}

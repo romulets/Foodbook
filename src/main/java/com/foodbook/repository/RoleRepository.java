@@ -14,8 +14,8 @@ public class RoleRepository extends AbstractRepository<Role> {
 	public Role findRole(String name) {
 		String sql = "FROM Role WHERE name = :name";
 		return this.entityManager.createQuery(sql, Role.class)
-												.setParameter("name", name)
-												.getSingleResult();
+											.setParameter("name", name)
+											.getSingleResult();
 	}
 	
 }

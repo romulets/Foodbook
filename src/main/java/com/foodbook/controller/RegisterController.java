@@ -34,10 +34,10 @@ public class RegisterController {
 	}	
 
 	@RequestMapping(value="/register", method=RequestMethod.GET)
-	public String register(Model model, Authentication currentUser) {
+	public String register(Model model, Authentication auth) {
 		RegisterForm register;
 		
-		if (currentUser != null)
+		if (auth != null)
 			return "redirect:/timeline";
 	  
 		register = new RegisterForm();

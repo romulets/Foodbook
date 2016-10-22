@@ -22,8 +22,10 @@ public class RecipeRepository extends AbstractRepository<Recipe> {
 	public List<Recipe> getRecipes(User user) {
 		String hql = "SELECT recipe FROM Recipe as recipe WHERE recipe.publishedBy = :user";
 		Query query = entityManager.createQuery(hql);
+		
 		query.setParameter("user", user);
 		query.setMaxResults(10);
+		
 		List<Recipe> recipes = (List<Recipe>) query.getResultList();
 		
 		return recipes;
@@ -33,7 +35,9 @@ public class RecipeRepository extends AbstractRepository<Recipe> {
 	public Set<Recipe> getRecipesLikedBy(User user) {
 		String hql = "SELECT recipes FROM User u JOIN u.likedRecipes recipes WHERE u.idUser = :idUser";
 		Query query = entityManager.createQuery(hql);
+		
 		query.setParameter("idUser", user.getIdUser());
+		
 		Set<Recipe> recipes = new HashSet<Recipe>(query.getResultList());
 		
 		return recipes;

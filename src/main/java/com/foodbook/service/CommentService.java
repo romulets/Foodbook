@@ -7,6 +7,7 @@ import com.foodbook.model.User;
 public interface CommentService {
 
 	public Comment save(Comment comment, Integer idRecipe, User user);
+	
 	public Comment save(Comment comment, Recipe recipe, User user);
 	
 }

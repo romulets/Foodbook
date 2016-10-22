@@ -12,12 +12,12 @@ public abstract class AbstractRepository<E> implements Repository<E> {
 
 	final Class<E> typeParameterClass;
 
+	@PersistenceContext(unitName = "foodbookPU")
+	protected EntityManager entityManager;
+
 	public AbstractRepository(Class<E> typeParameterClass) {
 		this.typeParameterClass = typeParameterClass;
 	}
-
-	@PersistenceContext(unitName = "foodbookPU")
-	protected EntityManager entityManager;
 
 	@Transactional
 	@Override
@@ -37,22 +37,25 @@ public abstract class AbstractRepository<E> implements Repository<E> {
 	public List<E> list(String className) {
 		try {
 			return this.entityManager.createQuery("FROM " + className).getResultList();
+			
 		} catch (IllegalArgumentException error) {
 			error.printStackTrace();
+			
 		} catch (PersistenceException error) {
 			error.printStackTrace();
 		}
 		return null;
 	}
 
-	
 	@Override
 	@Deprecated
 	public E findById(String className, Integer id) {
 		try {
 			this.entityManager.find(className.getClass(), id);
+			
 		} catch (IllegalArgumentException error) {
 			error.printStackTrace();
+			
 		} catch (PersistenceException error) {
 			error.printStackTrace();
 		}
@@ -67,6 +70,7 @@ public abstract class AbstractRepository<E> implements Repository<E> {
 		} catch (IllegalArgumentException error) {
 			error.printStackTrace();
 			return null;
+			
 		} catch (PersistenceException error) {
 			error.printStackTrace();
 			return null;

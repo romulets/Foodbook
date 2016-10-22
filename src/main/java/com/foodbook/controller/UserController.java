@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.foodbook.model.User;
 import com.foodbook.repository.RecipeRepository;
-import com.foodbook.repository.UserRepository;
 import com.foodbook.service.UserService;
 
 import javassist.NotFoundException;
@@ -46,6 +45,7 @@ public class UserController {
 	private String makeProfile(Model model, User user) {
 		model.addAttribute("recipes", recipeRepository.getRecipes(user));
 		model.addAttribute("user", user);
+		
 		return "user/profile";
 	}
 

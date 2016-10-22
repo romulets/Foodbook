@@ -18,10 +18,11 @@ public class CategoryServiceImpl implements CategoryService {
 	
 	@Override
 	public List<Category> list() throws Exception {
-			List<Category> categories = cr.list("Category");
-		if(categories == null){
+		List<Category> categories = cr.list("Category");
+		
+		if(categories == null)
 			throw new Exception ("Doesn`t have categories to list");
-		}
+		
 		return categories;
 	}
 

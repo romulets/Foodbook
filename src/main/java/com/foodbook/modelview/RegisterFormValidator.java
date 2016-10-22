@@ -5,7 +5,7 @@ import org.springframework.validation.Validator;
 
 import com.foodbook.model.User;
 
-public class RegisterFormValidator implements Validator{
+public class RegisterFormValidator implements Validator {
 
 	@Override
 	public boolean supports(Class<?> clazz) {
@@ -21,9 +21,8 @@ public class RegisterFormValidator implements Validator{
 		User user;
 		user = form.getUser();
 		
-		if( !form.getPasswordConfirmation().equals(user.getPassword())){
+		if( !form.getPasswordConfirmation().equals(user.getPassword()))
 			errors.rejectValue("passwordConfirmation", "", "A senha e a confirmação devem ser iguais");
-		}		
 	}
 	
 }
