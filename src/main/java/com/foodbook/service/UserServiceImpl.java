@@ -3,9 +3,9 @@ package com.foodbook.service;
 import java.sql.Date;
 import java.util.GregorianCalendar;
 
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -43,6 +43,17 @@ public class UserServiceImpl implements UserDetailsService, UserService{
 	@Override
 	public Repository<User> getRepository() {
 		return userRepo;
+	}
+	
+	@Override
+	public boolean follow(User userToFollow, Authentication auth) {
+		User currentUser = (User) auth.getPrincipal();
+		userToFollow = userRepo.findById(userToFollow.getIdUser());
+		
+		currentUser.getFollow().add(userToFollow);
+		userRepo.update(currentUser);
+		
+		return true;
 	}
 	
 	@Override

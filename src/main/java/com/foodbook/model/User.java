@@ -91,13 +91,13 @@ public class User implements UserDetails {
 	private Set<Role> roles;
 	
 	@ManyToMany(fetch=FetchType.EAGER)
-    @JoinTable(name = "user_friend", joinColumns = 
+    @JoinTable(name = "user_follow", joinColumns = 
     @JoinColumn(name = "idUser_A", referencedColumnName = "idUser"), inverseJoinColumns = 
     @JoinColumn(name = "idUser_B", referencedColumnName = "idUser"))
-	private Set<User> friends;
+	private Set<User> follow;
 	
 	@ManyToMany(mappedBy="friends")
-	private Set<User> friendOf;
+	private Set<User> followers;
 
 	public User() {
 		super();
@@ -200,20 +200,20 @@ public class User implements UserDetails {
 		return roles;
 	}
 
-	public Set<User> getFriends() {
-		return friends;
+	public Set<User> getFollow() {
+		return follow;
 	}
 
-	public void setFriends(Set<User> friends) {
-		this.friends = friends;
+	public void setFollow(Set<User> friends) {
+		this.follow = friends;
 	}
 
-	public Set<User> getFriendOf() {
-		return friendOf;
+	public Set<User> getFollowers() {
+		return followers;
 	}
 
-	public void setFriendOf(Set<User> friendOf) {
-		this.friendOf = friendOf;
+	public void setFollowers(Set<User> friendOf) {
+		this.followers = friendOf;
 	}
 
 	@Override

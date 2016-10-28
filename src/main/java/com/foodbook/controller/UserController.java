@@ -4,9 +4,10 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,16 +15,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.foodbook.exceptions.ResourceNotFoundException;
 import com.foodbook.model.User;
 import com.foodbook.repository.RecipeRepository;
-import com.foodbook.service.UserService;
-
-import javassist.NotFoundException;
+import com.foodbook.service.UserServiceImpl;
 
 @Controller
 @Transactional
 public class UserController {
 
 	@Autowired
-	private UserService userService;
+	private UserServiceImpl userService;
 	
 	@Autowired
 	private RecipeRepository recipeRepository;
@@ -43,6 +42,17 @@ public class UserController {
 			throw new ResourceNotFoundException();
 		
 		return makeProfile(model, user, logged);
+	}
+	
+	@RequestMapping(value="follow", method=RequestMethod.POST)
+	public String follow(
+			@ModelAttribute("userToFollow") User userToFollow, 
+			Authentication auth,
+			BindingResult result) {
+		userService.follow(userToFollow, auth);
+		
+		// Change it
+		return "/timeline";
 	}
 
 	private String makeProfile(Model model, User user, User loggedUser) {		

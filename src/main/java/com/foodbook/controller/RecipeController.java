@@ -1,7 +1,6 @@
 package com.foodbook.controller;
 
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.foodbook.exceptions.ResourceNotFoundException;
-import com.foodbook.model.Category;
 import com.foodbook.model.Recipe;
 import com.foodbook.service.CategoryService;
 import com.foodbook.service.RecipeService;
@@ -29,6 +27,7 @@ public class RecipeController {
 	@RequestMapping(value="recipe/{id}", method=RequestMethod.GET)
 	public String viewRecipe(@PathVariable("id") int id, Model model) {
 		Recipe recipe = recipeService.getRepository().findById(id);
+		
 		if(recipe == null)
 			throw new ResourceNotFoundException();
 		
@@ -80,7 +79,6 @@ public class RecipeController {
 		} catch(Exception e){
 			e.printStackTrace();
 			return mv.addObject("msg", "Busca inválida!");
-
 		}
 		return mv;
 	}
