@@ -4,6 +4,7 @@ import org.springframework.security.core.Authentication;
 
 import com.foodbook.model.User;
 import com.foodbook.repository.Repository;
+import com.foodbook.repository.UserRepository;
 
 public interface UserService {
 	
@@ -11,7 +12,9 @@ public interface UserService {
 	
 	public boolean follow(User user, Authentication auth);
 	
-	public Repository<User> getRepository();
+	public boolean unfollow(User user, Authentication auth);
+	
+	public UserRepository getRepository();
 
 
 }

@@ -18,6 +18,18 @@ public class UserRepository extends AbstractRepository<User> {
 		super(User.class);
 	}
 	
+	public boolean isFollowing(User follower, User followed) {
+		String hql = "SELECT COUNT(*) FROM User u "
+				+ "	  INNER JOIN u.following f"
+				+ "   WHERE u = :follower AND f = :followed";
+		
+		Query query = entityManager.createQuery(hql);
+		query.setParameter("follower", follower);
+		query.setParameter("followed", followed);
+		long count = (long)query.getSingleResult();
+		return count >= 1;
+	}
+	
 	public User loadUserByUsername(String login) {
 		User user;
 		String sql;

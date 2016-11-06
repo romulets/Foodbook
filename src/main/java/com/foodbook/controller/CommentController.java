@@ -12,13 +12,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.foodbook.model.User;
 import com.foodbook.modelview.AddCommentForm;
+import com.foodbook.service.CommentService;
 import com.foodbook.service.CommentServiceImpl;
 
 @Controller
 public class CommentController {
 	
 	@Autowired
-	private CommentServiceImpl commentService;
+	private CommentService commentService;
 	
 	@RequestMapping(value="/comment", method=RequestMethod.POST)
 	public String comment(

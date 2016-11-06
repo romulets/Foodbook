@@ -2,6 +2,7 @@ package com.foodbook.service;
 
 import java.sql.Date;
 import java.util.GregorianCalendar;
+import java.util.function.Predicate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -41,7 +42,7 @@ public class UserServiceImpl implements UserDetailsService, UserService{
 	}
 	
 	@Override
-	public Repository<User> getRepository() {
+	public UserRepository getRepository() {
 		return userRepo;
 	}
 	
@@ -49,10 +50,20 @@ public class UserServiceImpl implements UserDetailsService, UserService{
 	public boolean follow(User userToFollow, Authentication auth) {
 		User currentUser = (User) auth.getPrincipal();
 		userToFollow = userRepo.findById(userToFollow.getIdUser());
+		currentUser.getFollowing().add(userToFollow);
+		userRepo.update(currentUser);		
+		return true;
+	}
+	
+	@Override
+	public boolean unfollow(User userToUnfollow, Authentication auth) {
+		User currentUser = (User) auth.getPrincipal();
 		
-		currentUser.getFollow().add(userToFollow);
-		userRepo.update(currentUser);
+		currentUser.getFollowing().remove(userToUnfollow);
 		
+		System.out.println(userToUnfollow);
+		
+		// userRepo.update(currentUser);		
 		return true;
 	}
 	

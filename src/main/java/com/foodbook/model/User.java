@@ -92,11 +92,11 @@ public class User implements UserDetails {
 	
 	@ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name = "user_follow", joinColumns = 
-    @JoinColumn(name = "idUser_A", referencedColumnName = "idUser"), inverseJoinColumns = 
-    @JoinColumn(name = "idUser_B", referencedColumnName = "idUser"))
-	private Set<User> follow;
+    @JoinColumn(name = "idUser_follower", referencedColumnName = "idUser"), inverseJoinColumns = 
+    @JoinColumn(name = "idUser_followed", referencedColumnName = "idUser"))
+	private Set<User> following;
 	
-	@ManyToMany(mappedBy="friends")
+	@ManyToMany(mappedBy="following")
 	private Set<User> followers;
 
 	public User() {
@@ -200,12 +200,12 @@ public class User implements UserDetails {
 		return roles;
 	}
 
-	public Set<User> getFollow() {
-		return follow;
+	public Set<User> getFollowing() {
+		return following;
 	}
 
-	public void setFollow(Set<User> friends) {
-		this.follow = friends;
+	public void setFollowing(Set<User> following) {
+		this.following = following;
 	}
 
 	public Set<User> getFollowers() {

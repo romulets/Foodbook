@@ -3,6 +3,8 @@
 	</jsp:include>
 
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+	
 	<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 	<sec:authentication property="principal" var="loggedUser"/>
 
@@ -18,11 +20,17 @@
 			
 			<c:if test="${ user.idUser != loggedUser.idUser }">
 			<c:choose>
-				    <c:when test="${ isFollowing }">
-				     	<a href="#" class="btn btn-danger btn-xs pull-right">Deixar de ver as receitas desse Chef!</a>
+				    <c:when test="${ isFollowing == true }">
+				    <form:form servletRelativeAction="/unfollow" modelAttribute="user">
+							<input type="hidden" name="idUser" value="${user.idUser }">
+							<button type="submit" class="btn btn-danger btn-xs pull-right">Deixar de ver as receitas desse Chef!</button>
+						</form:form>
 				    </c:when>
 				    <c:otherwise>
-				    	<a href="#" class="btn btn-success btn-xs pull-right">Ver receitas desse Chef!</a>
+				    	<form:form servletRelativeAction="/follow" modelAttribute="user">
+							<input type="hidden" name="idUser" value="${user.idUser }">
+							<button type="submit" class="btn btn-success btn-xs pull-right">Ver receitas desse Chef!</button>
+						</form:form>
 				    </c:otherwise>
 				</c:choose>
     		</c:if>

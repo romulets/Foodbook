@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.foodbook.exceptions.ResourceNotFoundException;
 import com.foodbook.model.User;
 import com.foodbook.repository.RecipeRepository;
+import com.foodbook.service.UserService;
 import com.foodbook.service.UserServiceImpl;
 
 @Controller
@@ -22,7 +23,7 @@ import com.foodbook.service.UserServiceImpl;
 public class UserController {
 
 	@Autowired
-	private UserServiceImpl userService;
+	private UserService userService;
 	
 	@Autowired
 	private RecipeRepository recipeRepository;
@@ -46,19 +47,27 @@ public class UserController {
 	
 	@RequestMapping(value="follow", method=RequestMethod.POST)
 	public String follow(
-			@ModelAttribute("userToFollow") User userToFollow, 
+			@ModelAttribute("user") User userToFollow, 
 			Authentication auth,
 			BindingResult result) {
 		userService.follow(userToFollow, auth);
-		
-		// Change it
-		return "/timeline";
+		return "redirect:/profile/"+userToFollow.getIdUser();
+	}
+	
+	@RequestMapping(value="unfollow", method=RequestMethod.POST)
+	public String unfollow(
+			@ModelAttribute("user") User userToUnfollow, 
+			Authentication auth,
+			BindingResult result) {
+		userService.unfollow(userToUnfollow, auth);
+		return "redirect:/profile/"+userToUnfollow.getIdUser();
 	}
 
 	private String makeProfile(Model model, User user, User loggedUser) {		
 		model.addAttribute("recipes", recipeRepository.getPublishedRecipes(user));
 		model.addAttribute("user", user);
-		model.addAttribute("isFollowig", false);
+		boolean isFollowing = userService.getRepository().isFollowing(loggedUser, user);
+		model.addAttribute("isFollowing", isFollowing);
 		
 		return "user/profile";
 	}

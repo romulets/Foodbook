@@ -13,7 +13,7 @@
     			<p class="text-center">
 					Poxa, nem você nem outro chef de sua rede tem alguma receita publicada :'(
 					<br>
-					<a class="text-center" href="Foodbook/recipe/add">Que tal publicar uma aqui?</a>
+					<a class="text-center" href="/Foodbook/recipe/add">Que tal publicar uma aqui?</a>
 				</p>
     		</c:if>
     	
