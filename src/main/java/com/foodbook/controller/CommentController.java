@@ -24,15 +24,14 @@ public class CommentController {
 	@RequestMapping(value="/comment", method=RequestMethod.POST)
 	public String comment(
 			@Valid @ModelAttribute("commentForm") AddCommentForm commentForm,
-			Authentication currentUser,
+			Authentication auth,
 			BindingResult result) {		
 		try {
-			commentService.save(commentForm.getComment(), commentForm.getIdRecipe(), (User) currentUser);
-			
+			commentService.save(commentForm.getComment(), commentForm.getIdRecipe(), (User) auth.getPrincipal());
 		} catch (Exception error) {
 			error.printStackTrace();
 		}
-		return "redirect:/timeline";	
+		return "redirect:/recipe/" + commentForm.getIdRecipe();	
 	}
 	
 }

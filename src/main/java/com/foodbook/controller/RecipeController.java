@@ -12,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.foodbook.exceptions.ResourceNotFoundException;
 import com.foodbook.model.Recipe;
+import com.foodbook.modelview.AddCommentForm;
+import com.foodbook.repository.CommentRepository;
 import com.foodbook.service.CategoryService;
 import com.foodbook.service.RecipeService;
 
@@ -19,10 +21,13 @@ import com.foodbook.service.RecipeService;
 public class RecipeController {
 	
 	@Autowired
-	RecipeService recipeService;
+	private RecipeService recipeService;
 	
 	@Autowired
-	CategoryService categoryService;
+	private CommentRepository commentRepos;
+	
+	@Autowired
+	private CategoryService categoryService;
 	
 	@RequestMapping(value="recipe/{id}", method=RequestMethod.GET)
 	public String viewRecipe(@PathVariable("id") int id, Model model) {
@@ -32,6 +37,8 @@ public class RecipeController {
 			throw new ResourceNotFoundException();
 		
 		model.addAttribute("recipe", recipe);
+		model.addAttribute("comments", commentRepos.findByRecipe(recipe));
+		model.addAttribute("commentForm", new AddCommentForm());
 		
 		return "recipe/profile";
 	}

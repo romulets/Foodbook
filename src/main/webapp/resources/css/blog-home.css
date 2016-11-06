@@ -11,3 +11,11 @@ body {
 footer {
     margin: 50px 0;
 }
+
+small.really-small{
+	font-size: 70%;
+}
+
+.img-responsive {
+    margin: 0 auto;
+}

@@ -1,5 +1,8 @@
 package com.foodbook.service;
 
+import java.sql.Date;
+import java.util.Calendar;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -30,6 +33,8 @@ public class CommentServiceImpl implements CommentService {
 	public Comment save(Comment comment, Recipe recipe, User user) {
 		comment.setRecipeCommented(recipe);
 		comment.setUser(user);
+		comment.setPublicationDate(new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
+		
 		commentRepository.save(comment);
 		return comment;
 	}
