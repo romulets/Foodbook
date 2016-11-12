@@ -37,7 +37,7 @@
      		<fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${recipe.publicationDate}" />	     	 
 	</h6>
 
-	<img class="img-responsive center" src="http://placehold.it/900x300" alt="">
+	<img class="img-responsive center-block" src="http://placehold.it/900x300" alt="">
 	
 	<p>${ recipe.description }</p>
 	

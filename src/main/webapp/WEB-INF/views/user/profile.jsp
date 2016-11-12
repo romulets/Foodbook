@@ -3,41 +3,14 @@
 	</jsp:include>
 
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-	<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-	
-	<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-	<sec:authentication property="principal" var="loggedUser"/>
 
 	<div class="row">
 
     	<div class="col-md-8 col-md-offset-2">
     		
-   			<div class="text-center">
-				<img class="img-circle center-block" src="http://placehold.it/200x200"  width="200px" alt="">
-				<br />
-				<h2>${ user.name }</h2>
-			</div>
-			
-			<c:if test="${ user.idUser != loggedUser.idUser }">
-			<c:choose>
-				    <c:when test="${ isFollowing == true }">
-				    <form:form servletRelativeAction="/unfollow" modelAttribute="user">
-							<input type="hidden" name="idUser" value="${user.idUser }">
-							<button type="submit" class="btn btn-danger btn-xs pull-right">Deixar de ver as receitas desse Chef!</button>
-						</form:form>
-				    </c:when>
-				    <c:otherwise>
-				    	<form:form servletRelativeAction="/follow" modelAttribute="user">
-							<input type="hidden" name="idUser" value="${user.idUser }">
-							<button type="submit" class="btn btn-success btn-xs pull-right">Ver receitas desse Chef!</button>
-						</form:form>
-				    </c:otherwise>
-				</c:choose>
-    		</c:if>
-				
-				
-			<span class="clearfix"></span>
-			<hr />
+    		<c:set var="user" value="${user}" scope="request"/>
+    		<c:set var="active" value="profile" scope="request"/>
+			<c:import url="../includes/logged/profile-header.jsp" />
     		    	
     		<c:if test="${ empty recipes }">   					
 	    		<c:choose>

@@ -16,6 +16,10 @@ small.really-small{
 	font-size: 70%;
 }
 
-.img-responsive {
-    margin: 0 auto;
+.margin-left {
+	margin-left: 10px;
+}
+
+.margin-bottom {
+	margin-bottom: 10px;
 }

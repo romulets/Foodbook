@@ -32,7 +32,7 @@
      		<fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${requestScope.recipe.publicationDate}" />	     	 
 	</h6>
 
-	<img class="img-responsive" src="http://placehold.it/900x300" alt="">
+	<img class="img-responsive center-block" src="http://placehold.it/900x300" alt="">
 	
 	<p>${ requestScope.recipe.description }</p>
 	<a class="btn btn-info btn-xs pull-right" href="/Foodbook/recipe/${ requestScope.recipe.idRecipe }">

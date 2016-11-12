@@ -76,7 +76,7 @@ WHERE r.recipe_publishedBy_fk = :mainUser OR
       (r.recipe_publishedBy_fk IN (
         SELECT f.idUser
         FROM user f
-          INNER JOIN user_follow uf ON f.idUser = uf.idUser_followed AND (uf.idUser_follower = :followerUser)
+          INNER JOIN user_follow ASuf ON f.idUser = uf.idUser_followed AND (uf.idUser_follower = :followerUser)
       ) AND r.status = TRUE) OR
       (r.idRecipe IN (
         SELECT url.idRecipe

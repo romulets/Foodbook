@@ -45,6 +45,23 @@ public class UserController {
 		return makeProfile(model, user, logged);
 	}
 	
+	@RequestMapping(value = "followers/{user}", method = RequestMethod.GET)
+	public String followers(Model model, @PathVariable("user") int userId, Authentication auth) {
+		User user = userService.getRepository().findById(userId); 
+		model.addAttribute("user", user);
+		model.addAttribute("isFollowing", isFollowing((User) auth.getPrincipal(), user));
+		return "user/followers";
+	}
+	
+	@RequestMapping(value = "following/{user}", method = RequestMethod.GET)
+	public String following(Model model, @PathVariable("user") int userId, Authentication auth) {
+		User user = userService.getRepository().findById(userId); 
+		model.addAttribute("isFollowing", isFollowing((User) auth.getPrincipal(), user));
+		model.addAttribute("user", user);
+		return "user/following";
+	}
+	
+	
 	@RequestMapping(value="follow", method=RequestMethod.POST)
 	public String follow(
 			@ModelAttribute("user") User userToFollow, 
@@ -66,10 +83,13 @@ public class UserController {
 	private String makeProfile(Model model, User user, User loggedUser) {		
 		model.addAttribute("recipes", recipeRepository.getPublishedRecipes(user));
 		model.addAttribute("user", user);
-		boolean isFollowing = userService.getRepository().isFollowing(loggedUser, user);
-		model.addAttribute("isFollowing", isFollowing);
+		model.addAttribute("isFollowing", isFollowing(loggedUser, user));
 		
 		return "user/profile";
+	}
+	
+	private boolean isFollowing(User loggedUser, User user) {
+		return userService.getRepository().isFollowing(loggedUser, user);
 	}
 
 }
