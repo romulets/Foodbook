@@ -94,9 +94,6 @@ public class UserController {
 		List<User> users = userService.getUsersByName(name);
 		List<Recipe> recipes = recipeService.getRecipesByName(name);
 		
-		System.out.println(users);
-		System.out.println(recipes);
-		
 		model.addAttribute("users", users);
 		model.addAttribute("recipes", recipes);
 		
