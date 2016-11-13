@@ -1,5 +1,7 @@
 package com.foodbook.controller;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.foodbook.exceptions.ResourceNotFoundException;
+import com.foodbook.model.Recipe;
 import com.foodbook.model.User;
 import com.foodbook.repository.RecipeRepository;
+import com.foodbook.service.RecipeService;
 import com.foodbook.service.UserService;
-import com.foodbook.service.UserServiceImpl;
 
 @Controller
 @Transactional
@@ -24,6 +27,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private RecipeService recipeService;
 	
 	@Autowired
 	private RecipeRepository recipeRepository;
@@ -78,6 +84,23 @@ public class UserController {
 			BindingResult result) {
 		userService.unfollow(userToUnfollow, auth);
 		return "redirect:/profile/"+userToUnfollow.getIdUser();
+	}
+	
+	@RequestMapping(value="search/{name}", method=RequestMethod.GET)
+	public String search(
+			Authentication auth, 
+			@PathVariable("name") String name,
+			Model model) {
+		List<User> users = userService.getUsersByName(name);
+		List<Recipe> recipes = recipeService.getRecipesByName(name);
+		
+		System.out.println(users);
+		System.out.println(recipes);
+		
+		model.addAttribute("users", users);
+		model.addAttribute("recipes", recipes);
+		
+		return "redirect:/timeline/";
 	}
 
 	private String makeProfile(Model model, User user, User loggedUser) {		

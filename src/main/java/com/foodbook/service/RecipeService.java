@@ -15,6 +15,8 @@ public interface RecipeService {
 	
 	public List<Recipe> listRecipes() throws Exception;
 	
+	public List<Recipe> getRecipesByName(String name);
+	
 	public Repository<Recipe> getRepository();
 	
 }

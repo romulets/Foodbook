@@ -64,6 +64,15 @@ public class RecipeRepository extends AbstractRepository<Recipe> {
 		return recipes;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Recipe> getRecipesByName(String name) {
+		String hql = "FROM Recipe r WHERE r.name LIKE :name";
+		List<Recipe> recipes = this.entityManager.createQuery(hql)
+						  .setParameter("name", name + "%")
+						  .getResultList();
+		return recipes;
+	}
+	
 }
 
 

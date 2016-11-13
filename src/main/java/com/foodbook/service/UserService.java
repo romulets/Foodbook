@@ -1,9 +1,10 @@
 package com.foodbook.service;
 
+import java.util.List;
+
 import org.springframework.security.core.Authentication;
 
 import com.foodbook.model.User;
-import com.foodbook.repository.Repository;
 import com.foodbook.repository.UserRepository;
 
 public interface UserService {
@@ -14,7 +15,8 @@ public interface UserService {
 	
 	public boolean unfollow(User user, Authentication auth);
 	
+	public List<User> getUsersByName(String name);
+	
 	public UserRepository getRepository();
-
 
 }

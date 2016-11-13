@@ -2,6 +2,7 @@ package com.foodbook.service;
 
 import java.sql.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,6 +87,12 @@ public class UserServiceImpl implements UserDetailsService, UserService{
 			user.setCreationDate(new Date(now));
 		}
 		userRepo.save(user);
+	}
+
+	@Override
+	public List<User> getUsersByName(String name) {
+		List<User> users = userRepo.getUsersByName(name);
+		return users;
 	}
 	
 }

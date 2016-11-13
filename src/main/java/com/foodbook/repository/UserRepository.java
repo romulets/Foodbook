@@ -1,6 +1,7 @@
 package com.foodbook.repository;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.NoResultException;
@@ -45,6 +46,15 @@ public class UserRepository extends AbstractRepository<User> {
 			return null;
 		}
 		return user;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<User> getUsersByName(String name) {
+		String hql = "FROM User u WHERE u.name LIKE :name";
+		List<User> users = this.entityManager.createQuery(hql)
+						  .setParameter("name", name + "%")
+						  .getResultList();
+		return users;
 	}
 	
 	@SuppressWarnings("unchecked")
