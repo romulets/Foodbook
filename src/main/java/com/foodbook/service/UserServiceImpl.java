@@ -50,21 +50,26 @@ public class UserServiceImpl implements UserDetailsService, UserService{
 	@Override
 	public boolean follow(User userToFollow, Authentication auth) {
 		User currentUser = (User) auth.getPrincipal();
+		currentUser = userRepo.findById(currentUser.getIdUser());
 		userToFollow = userRepo.findById(userToFollow.getIdUser());
+		
 		currentUser.getFollowing().add(userToFollow);
-		userRepo.update(currentUser);		
+		userToFollow.getFollowers().add(userToFollow);
+		userRepo.update(currentUser);
+		
 		return true;
 	}
 	
 	@Override
 	public boolean unfollow(User userToUnfollow, Authentication auth) {
 		User currentUser = (User) auth.getPrincipal();
+		currentUser = userRepo.findById(currentUser.getIdUser());
+		userToUnfollow = userRepo.findById(userToUnfollow.getIdUser());
 		
 		currentUser.getFollowing().remove(userToUnfollow);
+		userToUnfollow.getFollowers().remove(currentUser);
+		userRepo.update(currentUser);		
 		
-		System.out.println(userToUnfollow);
-		
-		// userRepo.update(currentUser);		
 		return true;
 	}
 	

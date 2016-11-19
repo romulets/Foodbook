@@ -65,8 +65,7 @@ public class UserController {
 		model.addAttribute("isFollowing", isFollowing((User) auth.getPrincipal(), user));
 		model.addAttribute("user", user);
 		return "user/following";
-	}
-	
+	}	
 	
 	@RequestMapping(value="follow", method=RequestMethod.POST)
 	public String follow(
