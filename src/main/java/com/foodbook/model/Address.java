@@ -2,6 +2,7 @@ package com.foodbook.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,7 +37,7 @@ public class Address {
 	@NotEmpty(message="O campo país é obrigatório")
 	private String country;
 
-	@OneToOne
+	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="address_user_fk")
 	private User user;
     

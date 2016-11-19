@@ -57,7 +57,7 @@ public class RegisterController {
 		role = roleRepository.findRole("ROLE_USER");
 		register.getUser().getRoles().add(role);
 		
-		service.saveUser(register.getUser());
+		service.insertUser(register.getUser());
 		return "redirect:/timeline";			
 	}
 	

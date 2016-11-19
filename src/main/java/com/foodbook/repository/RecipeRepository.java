@@ -19,8 +19,18 @@ public class RecipeRepository extends AbstractRepository<Recipe> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Recipe> getPublishedRecipes(User user) {
+	public List<Recipe> getRecipes(User user) {
 		String hql = "SELECT recipe FROM Recipe as recipe WHERE recipe.publishedBy = :user";
+		Query query = entityManager.createQuery(hql);
+		query.setParameter("user", user);
+		query.setMaxResults(10);
+		List<Recipe> recipes = (List<Recipe>) query.getResultList();
+		return recipes;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Recipe> getPublishedRecipes(User user) {
+		String hql = "SELECT recipe FROM Recipe as recipe WHERE recipe.publishedBy = :user AND recipe.status = TRUE";
 		Query query = entityManager.createQuery(hql);
 		query.setParameter("user", user);
 		query.setMaxResults(10);

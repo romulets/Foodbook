@@ -3,6 +3,7 @@ package com.foodbook.controller;
 import java.util.List;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.foodbook.exceptions.ResourceNotFoundException;
 import com.foodbook.model.Recipe;
 import com.foodbook.model.User;
+import com.foodbook.modelview.EditUserForm;
+import com.foodbook.modelview.RegisterForm;
 import com.foodbook.repository.RecipeRepository;
 import com.foodbook.service.RecipeService;
 import com.foodbook.service.UserService;
@@ -63,9 +66,36 @@ public class UserController {
 		model.addAttribute("user", user);
 		return "user/following";
 	}	
+	
+	@RequestMapping(value = "profile/edit", method = RequestMethod.GET)
+	public String editForm(Model model, Authentication auth) {
+		User user = (User) auth.getPrincipal();
+		user = userService.getRepository().findById(user.getIdUser());
 
-	private String makeProfile(Model model, User user, User loggedUser) {		
-		model.addAttribute("recipes", recipeService.getRepository().getPublishedRecipes(user));
+		model.addAttribute("editUserForm", new EditUserForm(user));
+		return "user/edit";
+	}
+	
+	@RequestMapping(value = "profile/edit", method = RequestMethod.POST)
+	public String editAction(
+			Model model,
+			@Valid @ModelAttribute("editUserForm") EditUserForm editUserForm, 
+			BindingResult result,
+			Authentication auth
+			) {
+		if(result.hasErrors())
+			return "register/form";
+				
+		User sessionUser = (User) auth.getPrincipal();
+		userService.editUser(editUserForm, sessionUser.getIdUser());
+		return "redirect:/profile";
+	}
+
+	private String makeProfile(Model model, User user, User loggedUser) {
+		if(user.getIdUser() == loggedUser.getIdUser())
+			model.addAttribute("recipes", recipeService.getRepository().getRecipes(user));
+		else
+			model.addAttribute("recipes", recipeService.getRepository().getPublishedRecipes(user));
 		model.addAttribute("user", user);
 		model.addAttribute("isFollowing", isFollowing(loggedUser, user));
 		

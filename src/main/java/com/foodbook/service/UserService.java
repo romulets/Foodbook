@@ -1,15 +1,16 @@
 package com.foodbook.service;
 
-import java.util.List;
-
 import org.springframework.security.core.Authentication;
 
 import com.foodbook.model.User;
+import com.foodbook.modelview.EditUserForm;
 import com.foodbook.repository.UserRepository;
 
 public interface UserService {
 	
-	public void saveUser(User user);
+	public void insertUser(User user);
+	
+	public void editUser(EditUserForm user, int id);
 	
 	public boolean follow(User user, Authentication auth);
 	

@@ -32,6 +32,7 @@
 	        <li><a href="/Foodbook/timeline">Timeline</a></li>
 	        <li><a href="/Foodbook/recipe/add">Nova Receita</a></li>
 	        <li><a href="/Foodbook/search">Buscar</a></li>
+	        <li><a href="/Foodbook/profile">Perfil</a></li>
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
 	        <li><a href="/Foodbook/logout">Sair</a></li>

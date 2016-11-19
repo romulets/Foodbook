@@ -7,7 +7,9 @@ import java.util.function.Predicate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.foodbook.model.User;
+import com.foodbook.modelview.EditUserForm;
 import com.foodbook.repository.AddressRepository;
 import com.foodbook.repository.Repository;
 import com.foodbook.repository.UserRepository;
@@ -75,7 +78,7 @@ public class UserServiceImpl implements UserDetailsService, UserService{
 	
 	@Override
 	@Transactional
-	public void saveUser(User user) {
+	public void insertUser(User user) {
 		BCryptPasswordEncoder encoder;
 		String cryptedPassword;
 		
@@ -84,13 +87,35 @@ public class UserServiceImpl implements UserDetailsService, UserService{
 		
 		user.setPassword(cryptedPassword);
 		
-		if(user.getAddress() != null)
+		if(user.getAddress() != null) {
+			user.getAddress().setUser(user);
 			addressRepo.save(user.getAddress());
+		}
+			
 		
 		if(user.getCreationDate() == null) {
 			long now = GregorianCalendar.getInstance().getTimeInMillis();
 			user.setCreationDate(new Date(now));
 		}
+		userRepo.save(user);
+	}
+	
+	@Override
+	@Transactional
+	public void editUser(EditUserForm userForm, int id) {
+		User user = userRepo.findById(id);
+		user.setName(userForm.getName());
+		
+		if(user.getAddress() != null) {
+			user.getAddress().setCity(userForm.getAddress().getCity());
+			user.getAddress().setState(userForm.getAddress().getState());
+			user.getAddress().setCountry(userForm.getAddress().getCountry());
+		} else {
+			user.setAddress(user.getAddress());
+		}
+		
+		Authentication authentication = new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(authentication);		
 		userRepo.save(user);
 	}
 	

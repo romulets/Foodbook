@@ -26,13 +26,20 @@
 			</form:form>
 	    </c:otherwise>
 	</c:choose>
- 		</c:if>
+</c:if>
 	
+<c:if test="${ requestScope.user.idUser == loggedUser.idUser }">
+	<a class="btn btn-default btn-xs pull-right margin-bottom" href="/Foodbook/profile/edit">Editar Perfil</a>
+</c:if>
 	
 <div class="btn-group btn-group-justified">
 	<a href="/Foodbook/profile/${ user.idUser }" class="btn btn-default ${requestScope.active == 'profile' ? 'active' : ''}">Receitas</a>
-	<a href="/Foodbook/followers/${ user.idUser }" class="btn btn-default ${requestScope.active == 'followers' ? 'active' : ''}">Seguidores</a>
-	<a href="/Foodbook/following/${ user.idUser }" class="btn btn-default ${requestScope.active == 'following' ? 'active' : ''}">Seguindo</a>
+	<a href="/Foodbook/followers/${ user.idUser }" class="btn btn-default ${requestScope.active == 'followers' ? 'active' : ''}">
+		Seguidores <span class="badge">${ user.followers.size() }</span>
+	</a>
+	<a href="/Foodbook/following/${ user.idUser }" class="btn btn-default ${requestScope.active == 'following' ? 'active' : ''}">
+		Seguindo <span class="badge">${ user.following.size() }</span>
+	</a>
 </div>				
 	
 <span class="clearfix"></span>
