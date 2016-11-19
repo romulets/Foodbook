@@ -93,11 +93,5 @@ public class UserServiceImpl implements UserDetailsService, UserService{
 		}
 		userRepo.save(user);
 	}
-
-	@Override
-	public List<User> getUsersByName(String name) {
-		List<User> users = userRepo.getUsersByName(name);
-		return users;
-	}
 	
 }

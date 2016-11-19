@@ -57,6 +57,13 @@ public class UserRepository extends AbstractRepository<User> {
 		return users;
 	}
 	
+	public long getNumberOfUsersByName(String name) {
+		String hql = "SELECT count(*) FROM User u WHERE u.name LIKE :name";
+		return (long) this.entityManager.createQuery(hql)
+						  .setParameter("name", name + "%")
+						  .getSingleResult();
+	}
+	
 	@SuppressWarnings("unchecked")
 	public Set<User> getUsersWhoLiked(Recipe recipe) {
 		String hql = "SELECT users FROM Recipe r JOIN r.likedBy users WHERE r.idRecipe = :idRecipe";

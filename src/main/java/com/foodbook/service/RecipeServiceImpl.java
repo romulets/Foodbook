@@ -57,14 +57,8 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 	
 	@Override
-	public Repository<Recipe> getRepository() {
+	public RecipeRepository getRepository() {
 		return recipeRepo;
-	}
-
-	@Override
-	public List<Recipe> getRecipesByName(String name) {
-		List<Recipe> recipes = recipeRepo.getRecipesByName(name);
-		return recipes;
 	}
 
 }

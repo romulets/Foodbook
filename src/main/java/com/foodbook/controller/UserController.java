@@ -31,9 +31,6 @@ public class UserController {
 	@Autowired
 	private RecipeService recipeService;
 	
-	@Autowired
-	private RecipeRepository recipeRepository;
-	
 	@RequestMapping(value = "profile", method = RequestMethod.GET)
 	public String loggedProfile(Model model, Authentication auth) {
 		User user = (User) auth.getPrincipal();
@@ -66,41 +63,9 @@ public class UserController {
 		model.addAttribute("user", user);
 		return "user/following";
 	}	
-	
-	@RequestMapping(value="follow", method=RequestMethod.POST)
-	public String follow(
-			@ModelAttribute("user") User userToFollow, 
-			Authentication auth,
-			BindingResult result) {
-		userService.follow(userToFollow, auth);
-		return "redirect:/profile/"+userToFollow.getIdUser();
-	}
-	
-	@RequestMapping(value="unfollow", method=RequestMethod.POST)
-	public String unfollow(
-			@ModelAttribute("user") User userToUnfollow, 
-			Authentication auth,
-			BindingResult result) {
-		userService.unfollow(userToUnfollow, auth);
-		return "redirect:/profile/"+userToUnfollow.getIdUser();
-	}
-	
-	@RequestMapping(value="search/{name}", method=RequestMethod.GET)
-	public String search(
-			Authentication auth, 
-			@PathVariable("name") String name,
-			Model model) {
-		List<User> users = userService.getUsersByName(name);
-		List<Recipe> recipes = recipeService.getRecipesByName(name);
-		
-		model.addAttribute("users", users);
-		model.addAttribute("recipes", recipes);
-		
-		return "redirect:/timeline/";
-	}
 
 	private String makeProfile(Model model, User user, User loggedUser) {		
-		model.addAttribute("recipes", recipeRepository.getPublishedRecipes(user));
+		model.addAttribute("recipes", recipeService.getRepository().getPublishedRecipes(user));
 		model.addAttribute("user", user);
 		model.addAttribute("isFollowing", isFollowing(loggedUser, user));
 		

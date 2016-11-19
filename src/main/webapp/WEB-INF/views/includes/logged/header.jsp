@@ -31,6 +31,7 @@
 	      <ul class="nav navbar-nav">
 	        <li><a href="/Foodbook/timeline">Timeline</a></li>
 	        <li><a href="/Foodbook/recipe/add">Nova Receita</a></li>
+	        <li><a href="/Foodbook/search">Buscar</a></li>
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
 	        <li><a href="/Foodbook/logout">Sair</a></li>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.security.core.Authentication;
 
 import com.foodbook.model.Recipe;
+import com.foodbook.repository.RecipeRepository;
 import com.foodbook.repository.Repository;
 
 public interface RecipeService {
@@ -15,8 +16,6 @@ public interface RecipeService {
 	
 	public List<Recipe> listRecipes() throws Exception;
 	
-	public List<Recipe> getRecipesByName(String name);
-	
-	public Repository<Recipe> getRepository();
+	public RecipeRepository getRepository();
 	
 }

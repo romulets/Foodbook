@@ -15,8 +15,6 @@ public interface UserService {
 	
 	public boolean unfollow(User user, Authentication auth);
 	
-	public List<User> getUsersByName(String name);
-	
 	public UserRepository getRepository();
 
 }
