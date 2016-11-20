@@ -27,3 +27,7 @@ small.really-small{
 .btn-group-block {
 	display: block;
 }
+
+.form-inline-block {
+	display: inline-block;
+}

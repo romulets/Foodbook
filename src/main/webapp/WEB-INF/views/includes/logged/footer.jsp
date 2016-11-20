@@ -1,3 +1,5 @@
+		<span class="clearfix"></span>
+		
  		<hr>
 
         <!-- Footer -->

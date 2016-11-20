@@ -75,8 +75,8 @@ public class RecipeRepository extends AbstractRepository<Recipe> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Recipe> getRecipesByNameOrDescription(String query) {
-		String hql = "FROM Recipe r WHERE r.name LIKE :name or r.description = :description";
+	public List<Recipe> getPublishedRecipesByNameOrDescription(String query) {
+		String hql = "FROM Recipe r WHERE r.status = TRUE AND (r.name LIKE :name or r.description LIKE :description)";
 		query = "%" + query + "%";
 		
 		List<Recipe> recipes = this.entityManager.createQuery(hql)
@@ -86,8 +86,8 @@ public class RecipeRepository extends AbstractRepository<Recipe> {
 		return recipes;
 	}
 	
-	public long getNumberOfRecipesByNameOrDescription(String query) {
-		String hql = "SELECT count(*) FROM Recipe r WHERE r.name LIKE :name or r.description = :description";
+	public long getNumberOfPublishedRecipesByNameOrDescription(String query) {
+		String hql = "SELECT count(*) FROM Recipe r WHERE r.status = TRUE AND (r.name LIKE :name or r.description LIKE :description)";
 		query = "%" + query + "%";
 		
 		return (long) this.entityManager.createQuery(hql)

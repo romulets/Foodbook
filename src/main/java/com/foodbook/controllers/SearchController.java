@@ -48,7 +48,7 @@ public class SearchController {
 			return "redirect:/search";
 		
 		List<User> users = userService.getRepository().getUsersByName(query);
-		long recipesCount = recipeService.getRepository().getNumberOfRecipesByNameOrDescription(query);
+		long recipesCount = recipeService.getRepository().getNumberOfPublishedRecipesByNameOrDescription(query);
 		
 		if(users.size() == 0 && recipesCount > 0)
 			return "redirect:/search/recipes?query=" + query;
@@ -73,7 +73,7 @@ public class SearchController {
 			return "redirect:/search";
 		
 		long usersCount = userService.getRepository().getNumberOfUsersByName(query);
-		List<Recipe> recipes = recipeService.getRepository().getRecipesByNameOrDescription(query);
+		List<Recipe> recipes = recipeService.getRepository().getPublishedRecipesByNameOrDescription(query);
 		
 		if(recipes.size() == 0 && usersCount > 0)
 			return "redirect:/search/users?query=" + query;

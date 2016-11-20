@@ -12,7 +12,7 @@
 </div>
 
 <c:if test="${ requestScope.user.idUser != loggedUser.idUser }">
-<c:choose>
+	<c:choose>
 	    <c:when test="${ isFollowing == true }">
 	    <form:form servletRelativeAction="/unfollow" modelAttribute="user">
 				<input type="hidden" name="idUser" value="${requestScope.user.idUser }">

@@ -69,6 +69,13 @@ public class Recipe {
 	@JoinColumn(name="recipe_publishedBy_fk")
 	private User publishedBy;
 
+	public boolean isLikedBy(User user) {
+		for(User searchingUser : likedBy)
+			if(searchingUser.getIdUser() == user.getIdUser())
+				return true;
+		return false;
+	}
+	
 	public Integer getIdRecipe() {
 		return idRecipe;
 	}

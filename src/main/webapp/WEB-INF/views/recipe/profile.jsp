@@ -8,7 +8,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <sec:authentication property="principal" var="loggedUser"/>
 
-<div>
+<div class="col-md-8 col-md-offset-2">
 
 	<c:if test="${ recipe.publishedBy.idUser == loggedUser.idUser}" >
 		<div class="dropdown pull-right">
@@ -27,6 +27,10 @@
 	
 	<h2>
      	<a href="/Foodbook/recipe/${ recipe.idRecipe }">${ recipe.name }</a>
+     	
+     	<c:if test="${ !recipe.status }">
+     		<small class="text-mutted"><i>Não publicado</i></small>
+		</c:if>	     	
  	</h2>
  	
 	<h6>
@@ -38,6 +42,49 @@
 	</h6>
 
 	<img class="img-responsive center-block" src="http://placehold.it/900x300" alt="">
+	
+	<div class="row">
+		<div class="panel">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-md-6">
+						<p>
+							<c:if test="${ recipe.likedBy.size() == 0 }">
+								Nenhum chefe gostou dessa receita ainda :/
+							</c:if>
+							<c:if test="${ recipe.likedBy.size() == 1 }">
+								<span class="badge">${ recipe.likedBy.size()  }</span> Chefe Gostou dessa receita!
+							</c:if>
+							<c:if test="${ recipe.likedBy.size() > 1 }">
+								<span class="badge">${ recipe.likedBy.size()  }</span> Chefes Gostaram dessa receita!
+							</c:if>
+						</p>
+					</div>
+				
+					<div class="col-md-6 text-right">
+						<c:choose>
+						    <c:when test="${ !recipe.isLikedBy(loggedUser) }">
+							    	<form:form action="/Foodbook/like" class="form-inline form-inline-block">
+										<input type="hidden" name="recipe.idRecipe" value="${recipe.idRecipe}">
+										<button type="submit" class="btn btn-success btn-xs">
+											<span class="glyphicon glyphicon-thumbs-up"></span> Hmmm, Gostei!
+										</button>
+									</form:form>
+						    </c:when>
+						    <c:otherwise>
+						    		<form:form action="/Foodbook/unlike" class="form-inline form-inline-block">
+										<input type="hidden" name="recipe.idRecipe" value="${recipe.idRecipe}">
+										<button type="submit" class="btn btn-danger btn-xs">
+											<span class="glyphicon glyphicon-thumbs-down"></span> Não sei se gostei tanto
+										</button>
+									</form:form>
+						    </c:otherwise>
+						</c:choose>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	
 	<p>${ recipe.description }</p>
 	

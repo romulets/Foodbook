@@ -7,4 +7,6 @@ public interface SocialService {
 
 	public void like(Recipe recipe, User user);
 	
+	public void unlike(Recipe recipe, User user);
+	
 }

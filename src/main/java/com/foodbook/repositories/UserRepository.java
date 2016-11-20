@@ -52,7 +52,7 @@ public class UserRepository extends AbstractRepository<User> {
 	public List<User> getUsersByName(String name) {
 		String hql = "FROM User u WHERE u.name LIKE :name";
 		List<User> users = this.entityManager.createQuery(hql)
-						  .setParameter("name", name + "%")
+							.setParameter("name", "%" + name + "%")
 						  .getResultList();
 		return users;
 	}
@@ -60,7 +60,7 @@ public class UserRepository extends AbstractRepository<User> {
 	public long getNumberOfUsersByName(String name) {
 		String hql = "SELECT count(*) FROM User u WHERE u.name LIKE :name";
 		return (long) this.entityManager.createQuery(hql)
-						  .setParameter("name", name + "%")
+						  .setParameter("name", "%" + name + "%")
 						  .getSingleResult();
 	}
 	

@@ -31,5 +31,17 @@ public class SocialServiceImpl implements SocialService {
 		
 		userRepository.update(user);
 	}
+	
+	@Override	
+	public void unlike(Recipe recipe, User user) {
+		recipe = this.recipeRepository.findById(recipe.getIdRecipe());
+		user = userRepository.findById(user.getIdUser());
+		
+		user.getLikedRecipes().remove(recipe);
+		recipe.getLikedBy().remove(user);
+		
+		userRepository.update(user);
+		recipeRepository.update(recipe);
+	}
 
 }

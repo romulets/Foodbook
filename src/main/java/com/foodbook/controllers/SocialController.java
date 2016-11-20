@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.foodbook.models.User;
 import com.foodbook.modelviews.AddLikeForm;
+import com.foodbook.services.SocialService;
 import com.foodbook.services.SocialServiceImpl;
 import com.foodbook.services.UserService;
 
@@ -20,14 +21,34 @@ public class SocialController {
 	private UserService userService;
 	
 	@Autowired
-	private SocialServiceImpl socialService;
+	private SocialService socialService;
 
 	@RequestMapping(value="/like", method=RequestMethod.POST)
 	public String like(
 				@ModelAttribute("likeForm") AddLikeForm likeForm, 
 				Authentication auth) {
-			this.socialService.like(likeForm.getRecipe(), (User) auth.getPrincipal());
-		return "redirect:/timeline";
+		
+			try{
+				this.socialService.like(likeForm.getRecipe(), (User) auth.getPrincipal());
+				return "redirect:/recipe/" + likeForm.getRecipe().getIdRecipe();
+			} catch(Exception e) {
+				return "redirect:/timeline";
+			}
+		
+	}
+	
+	@RequestMapping(value="/unlike", method=RequestMethod.POST)
+	public String unlike(
+				@ModelAttribute("likeForm") AddLikeForm unlikeForm, 
+				Authentication auth) {
+		
+		try{
+			this.socialService.unlike(unlikeForm.getRecipe(), (User) auth.getPrincipal());
+			return "redirect:/recipe/" + unlikeForm.getRecipe().getIdRecipe();
+		} catch(Exception e) {
+			return "redirect:/timeline";
+		}
+		
 	}
 	
 	@RequestMapping(value="follow", method=RequestMethod.POST)
