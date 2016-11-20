@@ -29,7 +29,7 @@
 </c:if>
 	
 <c:if test="${ requestScope.user.idUser == loggedUser.idUser }">
-	<a class="btn btn-default btn-xs pull-right margin-bottom" href="/Foodbook/profile/edit">Editar Perfil</a>
+	<a class="btn btn-default btn-xs pull-right margin-bottom" href="/Foodbook/profile/edit/basic"><span class="glyphicon glyphicon-cog"></span> Editar Perfil</a>
 </c:if>
 	
 <div class="btn-group btn-group-justified">

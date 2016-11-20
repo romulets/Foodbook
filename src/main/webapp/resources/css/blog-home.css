@@ -23,3 +23,7 @@ small.really-small{
 .margin-bottom {
 	margin-bottom: 10px;
 }
+
+.btn-group-block {
+	display: block;
+}

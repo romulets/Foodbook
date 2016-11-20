@@ -31,7 +31,7 @@ public class FoodbookApplication {
 		   siteEntityManagerFactoryBean(EntityManagerFactoryBuilder 
 				   						builder){
 		return builder.dataSource(siteDataSourceBean())
-					  .packages("com.foodbook.model")
+					  .packages("com.foodbook.models")
 					  .persistenceUnit("foodbookPU")
 					  .build();
 	}
