@@ -58,6 +58,10 @@ public class User implements UserDetails {
 	@Size(min=6, message="O campo senha deve conter menos que 6 caracteres")
 	private String password;
 	
+	@Column
+	@NotNull(message="O campo foto não pode ficar vazio")
+	private String photo;
+	
 	@DateTimeFormat
 	@Column
 	private Date creationDate;
@@ -211,6 +215,14 @@ public class User implements UserDetails {
 
 	public void setFollowers(Set<User> friendOf) {
 		this.followers = friendOf;
+	}
+	
+	public String getPhoto() {
+		return photo;
+	}
+	
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 
 	@Override

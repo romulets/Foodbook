@@ -12,7 +12,7 @@
 	            <hr />
 	            
 	            <form:errors path="*" />
-	            <form:form modelAttribute="register">
+	            <form:form modelAttribute="register" enctype="multipart/form-data">
 	            	<div class="form-group">
 	            		<form:label path="user.name">Nome:</form:label>
 	            		<form:input path="user.name" cssClass="form-control input-sm" />
@@ -23,6 +23,11 @@
 	            		<form:label path="user.login">E-mail:</form:label>
 	            		<form:input path="user.login" cssClass="form-control input-sm" />
 						<form:errors path="user.login"/>
+	            	</div>
+	            	
+	            	<div class="form-group">
+	            		<label for="photo">Imagem de usuário</label>
+	            		<input type="file" name="photo">
 	            	</div>
 	            	
 	            	<div class="row">
