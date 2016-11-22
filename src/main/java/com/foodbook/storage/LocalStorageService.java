@@ -1,5 +1,6 @@
 package com.foodbook.storage;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
@@ -18,24 +19,19 @@ public class LocalStorageService implements StorageService {
        
 	
     public LocalStorageService() {
-        this.rootLocation = Paths.get("files/img");
+        this.rootLocation = Paths.get("files/img/");
     }		
     
     @Override
     public void init() {
-        try {
-            Files.createDirectory(rootLocation);
-        } catch (IOException e) {
-            throw new StorageException("Could not initialize storage", e);
-        }
+    	rootLocation.toFile().mkdirs();
     }
 
     @Override
     public void store(MultipartFile file) {
         try {
-            if (file.isEmpty()) {
+            if (file.isEmpty()) 
                 throw new StorageException("Failed to store empty file " + file.getOriginalFilename());
-            }
             Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
         } catch (IOException e) {
             throw new StorageException("Failed to store file " + file.getOriginalFilename(), e);

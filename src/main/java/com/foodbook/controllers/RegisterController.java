@@ -55,18 +55,18 @@ public class RegisterController {
 	public String postRegister(
 			@Valid @ModelAttribute("register") RegisterForm register, 
 			BindingResult result,
-			@RequestParam("photo") MultipartFile file) {
+			Model model) {
 		Role role;
 		
 		if(result.hasErrors())
 			return "register/form";
 		
-		storageService.store(file);		
+		storageService.store(register.getPhoto());		
 		role = roleRepository.findRole("ROLE_USER");
 		register.getUser().getRoles().add(role);
 		
 		service.insertUser(register.getUser());
-		return "redirect:/timeline";			
+		return "redirect:/timeline";
 	}
 	
 }

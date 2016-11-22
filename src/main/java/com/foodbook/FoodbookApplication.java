@@ -1,5 +1,6 @@
 package com.foodbook;
 
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -10,6 +11,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+
+import com.foodbook.storage.StorageService;
 
 @EnableJpaRepositories(basePackages="com.foodbook.repository")
 @SpringBootApplication
@@ -36,4 +39,10 @@ public class FoodbookApplication {
 					  .build();
 	}
 	
+	@Bean
+	CommandLineRunner init(StorageService storageService) {
+		return (args) -> {
+            storageService.init();
+		};
+	}
 }

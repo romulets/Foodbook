@@ -59,7 +59,6 @@ public class User implements UserDetails {
 	private String password;
 	
 	@Column
-	@NotNull(message="O campo foto não pode ficar vazio")
 	private String photo;
 	
 	@DateTimeFormat

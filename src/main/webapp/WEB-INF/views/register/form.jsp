@@ -28,6 +28,7 @@
 	            	<div class="form-group">
 	            		<label for="photo">Imagem de usuário</label>
 	            		<input type="file" name="photo">
+	            		<form:errors path="photo" />
 	            	</div>
 	            	
 	            	<div class="row">
