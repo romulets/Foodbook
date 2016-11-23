@@ -56,16 +56,21 @@ public class RegisterController {
 			@Valid @ModelAttribute("register") RegisterForm register, 
 			BindingResult result,
 			Model model) {
-		Role role;
+//		Role role;
 		
-		if(result.hasErrors())
-			return "register/form";
-		
-		storageService.store(register.getPhoto());		
-		role = roleRepository.findRole("ROLE_USER");
-		register.getUser().getRoles().add(role);
-		
-		service.insertUser(register.getUser());
+//		if(result.hasErrors())
+//			return "register/form";
+		System.out.println("Não veio foto");
+//		if(register.getPhoto() == null)
+//			System.out.println("Não veio foto");
+//		else
+//			System.out.println(register.getPhoto().getOriginalFilename());
+			
+//		storageService.store(register.getPhoto());
+//		role = roleRepository.findRole("ROLE_USER");
+//		register.getUser().getRoles().add(role);
+//		
+//		service.insertUser(register.getUser());
 		return "redirect:/timeline";
 	}
 	

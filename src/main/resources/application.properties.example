@@ -11,3 +11,7 @@ spring.jpa.generate-ddl=true
 spring.jpa.hibernate.ddl-auto:update
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5InnoDBDialect
 spring.jpa.show-sql=true
+
+spring.http.multipart.enabled= true
+spring.http.multipart.location= /tmp
+spring.http.multipart.max-file-size=10MB

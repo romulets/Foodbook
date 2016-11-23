@@ -12,6 +12,7 @@
 	            <hr />
 	            
 	            <form:errors path="*" />
+	            
 	            <form:form modelAttribute="register" enctype="multipart/form-data">
 	            	<div class="form-group">
 	            		<form:label path="user.name">Nome:</form:label>
