@@ -6,7 +6,7 @@
 	
 
 <div class="text-center">
-	<img class="img-circle center-block" src="http://placehold.it/200x200"  width="200px" alt="">
+	<img class="img-circle center-block" src="/Foodbook/${ loggedUser.getPhotoPath() }"  width="200px" alt="">
 	<br />
 	<h2>${ requestScope.user.name }</h2>
 </div>

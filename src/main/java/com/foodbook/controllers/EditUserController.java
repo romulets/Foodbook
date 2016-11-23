@@ -57,7 +57,7 @@ public class EditUserController {
 			return "user/edit/basic";
 				
 		User sessionUser = (User) auth.getPrincipal();
-		userService.editUser(editUserForm, sessionUser.getIdUser());
+		userService.update(editUserForm, sessionUser.getIdUser());
 		return "redirect:/profile";
 	}
 	
@@ -81,7 +81,7 @@ public class EditUserController {
 			return "user/edit/email";
 				
 		User sessionUser = (User) auth.getPrincipal();
-		userService.editUser(editUserForm, sessionUser.getIdUser());
+		userService.update(editUserForm, sessionUser.getIdUser());
 		return "redirect:/profile";
 	}
 	
@@ -105,7 +105,7 @@ public class EditUserController {
 			return "user/edit/password";
 				
 		User sessionUser = (User) auth.getPrincipal();
-		userService.editUser(editUserForm, sessionUser.getIdUser());
+		userService.update(editUserForm, sessionUser.getIdUser());
 		return "redirect:/profile";
 	}
 	

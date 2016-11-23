@@ -15,7 +15,6 @@ public class RegisterForm {
 	@NotNull
 	private String passwordConfirmation;
 	
-	private MultipartFile photo;
 
 	public User getUser() {
 		return user;
@@ -31,15 +30,6 @@ public class RegisterForm {
 
 	public void setPasswordConfirmation(String passwordConfirmation) {
 		this.passwordConfirmation = passwordConfirmation;
-	}
-
-	public MultipartFile getPhoto() {
-		return photo;
-	}
-
-	public void setPhoto(MultipartFile photo) {
-		this.photo = photo;
-	}
-	
+	}	
 	
 }

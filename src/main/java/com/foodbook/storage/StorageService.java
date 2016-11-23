@@ -9,9 +9,9 @@ public interface StorageService {
 
 	void init();
 
-    void store(MultipartFile file);
+    String store(MultipartFile file, String filename, ServerPath path);
 
-    Path load(String filename);
+    Path load(String filename, ServerPath path);
 
-    void delete(String filename);
+    void delete(String filename, ServerPath path);
 }

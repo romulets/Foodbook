@@ -28,6 +28,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.foodbook.storage.ServerPath;
+
 @Entity
 @Table(name="user")
 public class User implements UserDetails {
@@ -218,6 +220,13 @@ public class User implements UserDetails {
 	
 	public String getPhoto() {
 		return photo;
+	}
+	
+	public String getPhotoPath() {
+		if(photo == null)
+			return ServerPath.DEFAULT.getBrowserPath().resolve("user_no_image.png").toString();
+		else
+			return ServerPath.USER.getBrowserPath().resolve(photo).toString();
 	}
 	
 	public void setPhoto(String photo) {

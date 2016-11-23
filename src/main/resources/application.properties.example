@@ -4,14 +4,14 @@ security.basic.enabled=false
 
 datasource.main.url: jdbc:mysql://localhost/foodbook
 datasource.main.username:root
-datasource.main.password:root
+datasource.main.password:123123
 datasource.main.driverClassName:com.mysql.jdbc.Driver
 
 spring.jpa.generate-ddl=true
-spring.jpa.hibernate.ddl-auto:update
+spring.jpa.hibernate.ddl-auto:create-drop
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5InnoDBDialect
 spring.jpa.show-sql=true
 
-spring.http.multipart.enabled= true
-spring.http.multipart.location= /tmp
 spring.http.multipart.max-file-size=10MB
+
+server.resources.path=C:/Users/romul_000/java/sts-bundle/pivotal-tc-server-developer-3.1.5.RELEASE/base-instance/wtpwebapps/foodbook/resources

@@ -10,11 +10,12 @@ import com.foodbook.repositories.UserRepository;
 
 public interface UserService {
 	
-	public void insertUser(User user);
+	public void insert(User user);
 	
-	public void editUser(EditUserBasicForm form, int id);
-	public void editUser(EditUserEmailForm form, int id);
-	public void editUser(EditUserPasswordForm form, int id);
+	public void update(EditUserBasicForm form, int id);
+	public void update(EditUserEmailForm form, int id);
+	public void update(EditUserPasswordForm form, int id);
+	public void update(User user);
 	
 	public boolean follow(User user, Authentication auth);
 	

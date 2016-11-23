@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.foodbook.models.Role;
+import com.foodbook.models.User;
 import com.foodbook.modelviews.RegisterForm;
 import com.foodbook.repositories.RoleRepository;
+import com.foodbook.services.HashConvertorService;
 import com.foodbook.services.UserService;
+import com.foodbook.storage.ServerPath;
 import com.foodbook.storage.StorageService;
 import com.foodbook.validators.RegisterFormValidator;
 
@@ -33,6 +36,9 @@ public class RegisterController {
 	
 	@Autowired
 	private StorageService storageService;
+	
+	@Autowired
+	private HashConvertorService convertService;
 	
 	@InitBinder
 	protected void initBinder(WebDataBinder binder){
@@ -55,22 +61,28 @@ public class RegisterController {
 	public String postRegister(
 			@Valid @ModelAttribute("register") RegisterForm register, 
 			BindingResult result,
+			@ModelAttribute("photo") MultipartFile photo,
 			Model model) {
-//		Role role;
 		
-//		if(result.hasErrors())
-//			return "register/form";
-		System.out.println("Não veio foto");
-//		if(register.getPhoto() == null)
-//			System.out.println("Não veio foto");
-//		else
-//			System.out.println(register.getPhoto().getOriginalFilename());
+		Role role;
+		String filename;
+		
+		if(result.hasErrors())
+			return "register/form";
 			
-//		storageService.store(register.getPhoto());
-//		role = roleRepository.findRole("ROLE_USER");
-//		register.getUser().getRoles().add(role);
-//		
-//		service.insertUser(register.getUser());
+		role = roleRepository.findRole("ROLE_USER");
+		register.getUser().getRoles().add(role);
+
+		User user = register.getUser();
+		service.insert(user);
+		
+		
+		filename = String.format("%d_%s", user.getIdUser(), user.getUsername());
+		filename = storageService.store(photo, convertService.convert(filename), ServerPath.USER);
+		
+		user.setPhoto(filename);
+		service.update(user);
+		
 		return "redirect:/timeline";
 	}
 	

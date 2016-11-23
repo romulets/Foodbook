@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserDetailsService, UserService{
 	
 	@Override
 	@Transactional
-	public void insertUser(User user) {
+	public void insert(User user) {
 		BCryptPasswordEncoder encoder;
 		String cryptedPassword;
 		
@@ -104,7 +104,7 @@ public class UserServiceImpl implements UserDetailsService, UserService{
 	
 	@Override
 	@Transactional
-	public void editUser(EditUserBasicForm form, int id) {
+	public void update(EditUserBasicForm form, int id) {
 		User user = userRepo.findById(id);
 		user.setName(form.getName());
 		
@@ -124,7 +124,7 @@ public class UserServiceImpl implements UserDetailsService, UserService{
 	
 	@Override
 	@Transactional
-	public void editUser(EditUserEmailForm form, int id) {
+	public void update(EditUserEmailForm form, int id) {
 		User user = userRepo.findById(id);
 		user.setLogin(form.getEmail());		
 		userRepo.save(user);
@@ -135,7 +135,7 @@ public class UserServiceImpl implements UserDetailsService, UserService{
 	
 	@Override
 	@Transactional
-	public void editUser(EditUserPasswordForm form, int id) {
+	public void update(EditUserPasswordForm form, int id) {
 		BCryptPasswordEncoder encoder;
 		String cryptedPassword;
 		encoder = new BCryptPasswordEncoder();
@@ -144,6 +144,14 @@ public class UserServiceImpl implements UserDetailsService, UserService{
 		User user = userRepo.findById(id);
 		user.setPassword(cryptedPassword);
 		userRepo.save(user);
+	}
+	
+	@Override
+	@Transactional
+	public void update(User user) {
+		userRepo.save(user);
+		Authentication authentication = new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(authentication);
 	}
 	
 }
