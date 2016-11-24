@@ -1,5 +1,6 @@
 package com.foodbook.services;
 
+import java.awt.image.BufferedImage;
 import java.sql.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -16,7 +17,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.foodbook.helpers.ImageCropperHelper;
 import com.foodbook.models.User;
 import com.foodbook.modelviews.edituser.EditUserBasicForm;
 import com.foodbook.modelviews.edituser.EditUserEmailForm;
@@ -24,6 +27,8 @@ import com.foodbook.modelviews.edituser.EditUserPasswordForm;
 import com.foodbook.repositories.AddressRepository;
 import com.foodbook.repositories.Repository;
 import com.foodbook.repositories.UserRepository;
+import com.foodbook.storage.ServerPath;
+import com.foodbook.storage.StorageService;
 
 @Service
 @Primary
@@ -34,6 +39,15 @@ public class UserServiceImpl implements UserDetailsService, UserService{
 	
 	@Autowired
 	private AddressRepository addressRepo;
+	
+	@Autowired
+	private StorageService storageService;
+	
+	@Autowired
+	private HashConvertorService convertService;
+	
+	@Autowired
+	private ImageCropperHelper cropper;
 	
 	@Override
 	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
@@ -80,7 +94,7 @@ public class UserServiceImpl implements UserDetailsService, UserService{
 	
 	@Override
 	@Transactional
-	public void insertUser(User user) {
+	public void insert(User user) {
 		BCryptPasswordEncoder encoder;
 		String cryptedPassword;
 		
@@ -104,8 +118,38 @@ public class UserServiceImpl implements UserDetailsService, UserService{
 	
 	@Override
 	@Transactional
-	public void editUser(EditUserBasicForm form, int id) {
+	public void insert(User user, MultipartFile photo) {
+		insert(user);
+		saveImage(user, photo);
+	}
+	
+	private void saveImage(User user, MultipartFile photo) {
+		String filename;
+		if(photo != null && !photo.isEmpty()) {
+			filename = String.format("%d_%s", user.getIdUser(), user.getUsername());
+			BufferedImage bfImage = cropper.cropCenter(photo);
+			filename = storageService.store(bfImage, convertService.convert(filename), ServerPath.USER);
+			user.setPhoto(filename);
+			update(user);	
+		}
+	}
+	
+	@Override
+	@Transactional
+	public void update(EditUserBasicForm form, int id) {
 		User user = userRepo.findById(id);
+		update(form, user);		
+	}
+	
+	@Override
+	@Transactional
+	public void update(EditUserBasicForm form, MultipartFile photo, int id) {
+		User user = userRepo.findById(id);
+		saveImage(user, photo);
+		update(form, user);
+	}
+	
+	private void update(EditUserBasicForm form, User user) {
 		user.setName(form.getName());
 		
 		if(user.getAddress() != null) {
@@ -124,7 +168,7 @@ public class UserServiceImpl implements UserDetailsService, UserService{
 	
 	@Override
 	@Transactional
-	public void editUser(EditUserEmailForm form, int id) {
+	public void update(EditUserEmailForm form, int id) {
 		User user = userRepo.findById(id);
 		user.setLogin(form.getEmail());		
 		userRepo.save(user);
@@ -135,7 +179,7 @@ public class UserServiceImpl implements UserDetailsService, UserService{
 	
 	@Override
 	@Transactional
-	public void editUser(EditUserPasswordForm form, int id) {
+	public void update(EditUserPasswordForm form, int id) {
 		BCryptPasswordEncoder encoder;
 		String cryptedPassword;
 		encoder = new BCryptPasswordEncoder();
@@ -144,6 +188,14 @@ public class UserServiceImpl implements UserDetailsService, UserService{
 		User user = userRepo.findById(id);
 		user.setPassword(cryptedPassword);
 		userRepo.save(user);
+	}
+	
+	@Override
+	@Transactional
+	public void update(User user) {
+		userRepo.save(user);
+		Authentication authentication = new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(authentication);
 	}
 	
 }

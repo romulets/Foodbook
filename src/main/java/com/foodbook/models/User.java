@@ -28,6 +28,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.foodbook.storage.ServerPath;
+
 @Entity
 @Table(name="user")
 public class User implements UserDetails {
@@ -57,6 +59,9 @@ public class User implements UserDetails {
 	@NotEmpty(message="O campo senha não pode ficar vazio")
 	@Size(min=6, message="O campo senha deve conter menos que 6 caracteres")
 	private String password;
+	
+	@Column
+	private String photo;
 	
 	@DateTimeFormat
 	@Column
@@ -211,6 +216,21 @@ public class User implements UserDetails {
 
 	public void setFollowers(Set<User> friendOf) {
 		this.followers = friendOf;
+	}
+	
+	public String getPhoto() {
+		return photo;
+	}
+	
+	public String getPhotoPath() {
+		if(photo == null)
+			return ServerPath.DEFAULT.getBrowserPath().resolve("user_no_image.png").toString();
+		else
+			return photo;
+	}
+	
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 
 	@Override

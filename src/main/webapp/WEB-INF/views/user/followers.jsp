@@ -14,8 +14,8 @@
     		    	
     		<c:forEach items="${user.followers}" var="follower">
     			<div class="col-md-6 margin-bottom">
-	    			<img class="img-circle" src="http://placehold.it/50x50"  width="50px" alt="">
-	    			<strong class="margin-left">
+				<img class="img-circle" src="${ follower.getPhotoPath() }"
+					width="50px" alt=""> <strong class="margin-left">
 	    				<a href="/Foodbook/profile/${follower.idUser}">${ follower.name }</a>
 	    			</strong>
     			</div>

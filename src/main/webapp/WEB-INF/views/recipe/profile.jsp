@@ -41,7 +41,9 @@
      		<fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${recipe.publicationDate}" />	     	 
 	</h6>
 
-	<img class="img-responsive center-block" src="http://placehold.it/900x300" alt="">
+	<c:if test="${ recipe.photo != null }">
+		<img class="img-responsive center-block" src="${ recipe.photo }" alt="">
+	</c:if>
 	
 	<div class="row">
 		<div class="panel">

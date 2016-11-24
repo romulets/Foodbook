@@ -9,11 +9,16 @@
        		<h1>Editar Dados básicos</h1>
        		
        		<form:errors path="*" />
-            <form:form modelAttribute="editUserBasicForm">
+            <form:form modelAttribute="editUserBasicForm" enctype="multipart/form-data">
             	<div class="form-group">
             		<form:label path="name">Nome:</form:label>
             		<form:input path="name" cssClass="form-control input-sm" />
 					<form:errors path="name"/>
+            	</div>
+           
+           		<div class="form-group">
+            		<label for="photo">Imagem de usuário</label>
+            		<input type="file" name="photo">
             	</div>
            
             	<div class="row">
