@@ -11,7 +11,5 @@ public interface StorageService {
 
     String store(MultipartFile file, String filename, ServerPath path);
 
-    Path load(String filename, ServerPath path);
-
     void delete(String filename, ServerPath path);
 }

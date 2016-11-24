@@ -10,7 +10,7 @@ public enum ServerPath {
 	DEFAULT;
 	
 	
-	private String getSubPath(){
+	public String getIdentifier(){
 		switch(this) {
 		case USER:
 			return "users";
@@ -24,11 +24,11 @@ public enum ServerPath {
 	}
 	
 	public Path getServerPath() {
-		return Paths.get(String.format("images/%s/", getSubPath()));
+		return Paths.get(String.format("images/%s/", getIdentifier()));
 	}
 	
 	public Path getBrowserPath() {
-		return Paths.get(String.format("resources/images/%s/", getSubPath()));
+		return Paths.get(String.format("resources/images/%s/", getIdentifier()));
 	}
 	
 }
