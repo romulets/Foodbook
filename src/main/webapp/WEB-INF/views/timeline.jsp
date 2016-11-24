@@ -27,7 +27,7 @@
         <div class="col-md-4">
 			<div class="well">
 				<div class="text-center">
-					<img class="img-circle center-block" src="/Foodbook/${ currentUser.getPhotoPath() }"  width="100px" alt="">
+					<img class="img-circle center-block" src="${ currentUser.getPhotoPath() }"  width="100px" alt="">
 					<br />
 					<p><a href="/Foodbook/profile">${ currentUser.name }</a></p>
 				</div>	

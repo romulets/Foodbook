@@ -1,5 +1,6 @@
 package com.foodbook.storage;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
@@ -23,6 +24,12 @@ public class LocalStorageService implements StorageService {
     	getBasepath(ServerPath.USER).toFile().mkdirs();
     	getBasepath(ServerPath.RECIPE).toFile().mkdirs();
     }
+    
+    @Override
+    public String store(BufferedImage file, String filename, ServerPath path) {
+    	return "";
+    }
+    
     
     @Override
     public String store(MultipartFile file, String filename, ServerPath path) {

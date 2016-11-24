@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.foodbook.models.User;
 import com.foodbook.modelviews.edituser.EditUserBasicForm;
@@ -51,13 +52,14 @@ public class EditUserController {
 			Model model,
 			@Valid @ModelAttribute("editUserBasicForm") EditUserBasicForm editUserForm, 
 			BindingResult result,
+			@ModelAttribute("photo") MultipartFile photo,
 			Authentication auth
 			) {
 		if(result.hasErrors())
 			return "user/edit/basic";
 				
 		User sessionUser = (User) auth.getPrincipal();
-		userService.update(editUserForm, sessionUser.getIdUser());
+		userService.update(editUserForm, photo, sessionUser.getIdUser());
 		return "redirect:/profile";
 	}
 	

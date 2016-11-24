@@ -1,5 +1,6 @@
 package com.foodbook.controllers;
 
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.foodbook.helpers.ImageCropperHelper;
 import com.foodbook.models.Role;
 import com.foodbook.models.User;
 import com.foodbook.modelviews.RegisterForm;
@@ -33,12 +35,6 @@ public class RegisterController {
 	
 	@Autowired
 	private RoleRepository roleRepository;
-	
-	@Autowired
-	private StorageService storageService;
-	
-	@Autowired
-	private HashConvertorService convertService;
 	
 	@InitBinder
 	protected void initBinder(WebDataBinder binder){
@@ -65,7 +61,6 @@ public class RegisterController {
 			Model model) {
 		
 		Role role;
-		String filename;
 		
 		if(result.hasErrors())
 			return "register/form";
@@ -74,14 +69,7 @@ public class RegisterController {
 		register.getUser().getRoles().add(role);
 
 		User user = register.getUser();
-		service.insert(user);
-		
-		
-		filename = String.format("%d_%s", user.getIdUser(), user.getUsername());
-		filename = storageService.store(photo, convertService.convert(filename), ServerPath.USER);
-		
-		user.setPhoto(filename);
-		service.update(user);
+		service.insert(user, photo);		
 		
 		return "redirect:/timeline";
 	}

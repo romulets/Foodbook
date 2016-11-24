@@ -14,4 +14,8 @@ spring.jpa.show-sql=true
 
 spring.http.multipart.max-file-size=10MB
 
-server.resources.path=C:/Users/romul_000/java/sts-bundle/pivotal-tc-server-developer-3.1.5.RELEASE/base-instance/wtpwebapps/foodbook/resources
+server.resources.path=folder/to/public
+
+cloudinary.cloud_name=xxxxxxxxx
+cloudinary.api_key=000000000000000
+cloudinary.api_secret=xxxxxxxxxxxxxxxxxxxxxxxxxxx

@@ -226,7 +226,7 @@ public class User implements UserDetails {
 		if(photo == null)
 			return ServerPath.DEFAULT.getBrowserPath().resolve("user_no_image.png").toString();
 		else
-			return ServerPath.USER.getBrowserPath().resolve(photo).toString();
+			return photo;
 	}
 	
 	public void setPhoto(String photo) {

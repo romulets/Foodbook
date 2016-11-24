@@ -38,9 +38,11 @@
 	</h6>
 	
 	<div class="panel panel-default">
-		<div class="panel-header">
-			<img class="img-responsive center-block" src="http://placehold.it/900x300" alt="">
-		</div>
+		<c:if test="${ requestScope.recipe.photo!= null }">
+			<div class="panel-header">
+				<img class="img-responsive center-block" src="${ requestScope.recipe.photo }" alt="">
+			</div>
+		</c:if>
 	
 		<div class="panel-body">
 			<p>

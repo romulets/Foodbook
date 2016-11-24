@@ -43,6 +43,9 @@ public class Recipe {
 	@Column
 	private Date publicationDate;
 	
+	@Column
+	private String photo;
+	
 	@Column(nullable=false)
 	private boolean status;
 	
@@ -74,6 +77,14 @@ public class Recipe {
 			if(searchingUser.getIdUser() == user.getIdUser())
 				return true;
 		return false;
+	}
+	
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 	
 	public Integer getIdRecipe() {

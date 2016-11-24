@@ -28,7 +28,7 @@ public enum ServerPath {
 	}
 	
 	public Path getBrowserPath() {
-		return Paths.get(String.format("resources/images/%s/", getIdentifier()));
+		return Paths.get(String.format("/Foodbook/resources/images/%s/", getIdentifier()));
 	}
 	
 }
